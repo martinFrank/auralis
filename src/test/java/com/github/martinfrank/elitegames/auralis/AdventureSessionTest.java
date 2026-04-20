@@ -81,9 +81,10 @@ class AdventureSessionTest {
     @Test
     void sessionTest() throws IOException {
 //        String OLLAMA_URL = "http://localhost:11434";
-        String MODEL = "Mistral-Small:latest";
         String OLLAMA_URL = "http://192.168.0.251:11434";
+//        String MODEL = "Mistral-Small:latest";
 //        String MODEL = "mistral:7b";
+        String MODEL = "qwen3:32b";
 
         ChatLanguageModel model = OllamaChatModel.builder()
                 .baseUrl(OLLAMA_URL)
@@ -102,13 +103,14 @@ class AdventureSessionTest {
 
         ScenePrepareAgent prep = new ScenePrepareAgent(model);
         HeadingNode root = adventure.getHeadingTree().getFirst();
-        String einleitung = root.children().getFirst().body();          // "Einleitung (Meisterinformationen)"
-        String tavernChapter = tavern.title() + ": "+tavern.children().getFirst();          // "Eine fröhliche Taverne"
+        String backgroundInfo = root.children().getFirst().body();          // "Einleitung (Meisterinformationen)"
+        String tavernTitle = tavern.title();          // "Eine fröhliche Taverne"
+        String upcomingText = tavern.children().getFirst().body();
 
-        String scene = prep.prepareScene(tavernChapter, einleitung);
+        String scene = prep.prepareScene(tavernTitle, backgroundInfo, upcomingText);
         session.recordHeroldFragment(scene);
 
-        session.recordHeroldFragment(tavern.children().getFirst().body());
+        session.recordHeroldFragment(upcomingText.replace("\n", " "));
 
 
         List<AdventureSession.Turn> transcript = session.transcript();

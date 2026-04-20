@@ -31,7 +31,12 @@ public class ScenePrepareAgent {
             - Beschraenke dich auf Ort, Stimmung und die Tatsache, dass die
               Helden sich auf dem Weg zum Schauplatz des naechsten Kapitels
               befinden.
-            - Zitiere den uebergebenen Hintergrundtext NICHT woertlich.
+            - Zitiere weder den Hintergrundtext noch den Folgetext woertlich.
+            - Deine Szene muss so enden, dass der unmittelbar folgende
+              Spielleiter-Text nahtlos anschliessen kann (Ort, Tageszeit,
+              Stimmung passen zum Einstieg des Folgetextes). Greife dem
+              Folgetext aber nicht vor — beschreibe keine Details, die erst
+              dort eingefuehrt werden.
             - Halte die Szene kompakt (wenige Saetze, hoechstens ein kurzer
               Absatz).
             """;
@@ -39,14 +44,23 @@ public class ScenePrepareAgent {
     private static final String USER_PROMPT_TEMPLATE = """
             Bereite die Buehne fuer das Kapitel "%s" vor.
 
-            Der folgende Text liefert dir den Hintergrund (Meisterinformationen,
-            Welt-Kontext oder bisherige Ereignisse). Nutze ihn nur, um die
-            Uebergangsszene zu schreiben — verrate keine darin enthaltenen
-            Geheimnisse und zitiere ihn nicht woertlich.
+            Der folgende Hintergrund liefert dir Meisterinformationen, Welt-Kontext
+            oder bisherige Ereignisse. Nutze ihn nur, um die Uebergangsszene zu
+            schreiben — verrate keine darin enthaltenen Geheimnisse und zitiere
+            ihn nicht woertlich.
 
             === HINTERGRUND ===
             %s
             === ENDE HINTERGRUND ===
+
+            Direkt nach deiner Uebergangsszene wird der Spielleiter den folgenden
+            Text vorlesen. Gestalte deinen Uebergang so, dass er tonal, raeumlich
+            und zeitlich zum Beginn dieses Textes passt — ohne Inhalte daraus
+            vorwegzunehmen oder zu wiederholen.
+
+            === FOLGETEXT (nur zur Orientierung, nicht wiedergeben) ===
+            %s
+            === ENDE FOLGETEXT ===
             """;
 
     private final ChatLanguageModel model;
@@ -64,12 +78,13 @@ public class ScenePrepareAgent {
         return new ScenePrepareAgent(model);
     }
 
-    public String prepareScene(String chapterTitle, String backgroundContext) {
+    public String prepareScene(String chapterTitle, String backgroundContext, String upcomingText) {
         Objects.requireNonNull(chapterTitle, "chapterTitle");
         Objects.requireNonNull(backgroundContext, "backgroundContext");
+        Objects.requireNonNull(upcomingText, "upcomingText");
         Response<AiMessage> response = model.generate(List.of(
                 SystemMessage.from(SYSTEM_PROMPT),
-                UserMessage.from(USER_PROMPT_TEMPLATE.formatted(chapterTitle, backgroundContext))
+                UserMessage.from(USER_PROMPT_TEMPLATE.formatted(chapterTitle, backgroundContext, upcomingText))
         ));
         return response.content().text();
     }
