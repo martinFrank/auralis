@@ -1,5 +1,7 @@
 package com.github.martinfrank.elitegames.auralis;
 
+import com.github.martinfrank.elitegames.auralis.agent.HeroldAgent;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.auralis;
+package com.github.martinfrank.elitegames.auralis.agent;
 
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.SystemMessage;

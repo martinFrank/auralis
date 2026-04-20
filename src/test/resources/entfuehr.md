@@ -1,7 +1,9 @@
 # Verführung zur Entführung
+
 Ein Gruppenabenteuer in Aventurien
 
 ## Einleitung (Meisterinformationen)
+
 Mitten in Gareth liegt der kleine Kontor des Händlers 
 Arberd Vronfelden, der Schauplatz eines Verbrechens 
 werden wird Die Entführung seiner einzigen Tochter Irva. 
@@ -26,8 +28,9 @@ dann das eigentliche Abenteuer.
 ## Eine fröhliche Taverne
 
 ### Allgemeine Informationen
+
 Als Ihr die Tür zu der Taverne öffnen wollt kommt
-mit dieser gleich der erste betrunkenen Gast mit
+mit dieser gleich der erste betrunkenen Gast
 aus der brechend vollen Taverne heraus gepurzelt. 
 Er flucht ein paar unverständliche Worte, faßt sich 
 nachdem er sich hochgerappelt hat an den breiten
@@ -39,6 +42,7 @@ außen dringt aber wirklich fröhlich ist wollt Ihr
 auch rein zu den Garether Trunkenbolden. 
 
 ### Spezielle Informationen
+
 Sollten sich die Helden zu der Theke
 durchkämpfen können so kommt es zu einem
 Gespräch mit dem Wirt Romosch Sohn des
@@ -57,6 +61,7 @@ gemischten Gäste fließt nunmehr schon mehr
 Alkohol als Blut 
 
 ### Allgemeine Informationen 
+
 Kaum wahrnehmbar ist in dem Lärm das
 quietschen und knarren der Türe, was euch aber
 trotzdem auffällt, da es der erste Gast ist der sich
@@ -79,6 +84,7 @@ Quietschen der Tür Wahrscheinlich hat der Mann
 resigniert.
 
 ### Spezielle Informationen
+
 Erwartungsgemäss sollten sich die Helden nun
 bemühen dem Mann hinterher zu kommen was
 aber umso schwieriger ist als man es sich 
@@ -90,6 +96,7 @@ voller Trunkenbolde Ein zünftige Schlägerei
 bricht aus.
 
 ### Meisterinformationen 
+
 Diesen Kampf sollten die Helden genau wie die
 anderen führen Mit den Fäusten und
 schlimmstenfalls mit einem zerbrochenen
@@ -111,6 +118,7 @@ ohne Folgen) sollten man den Helden
 aber folgenden Gelegenheit zur Flucht lassen 
 
 ### Allgemeine Informationen 
+
 Mittlerweile scheint es als gälte nun die Regel 
 "Jeder gegen Jeden" und so kloppen sich die
 meisten Tavernengäste untereinander und keiner
@@ -120,12 +128,14 @@ frischen Luft wieder etwas klaren Kopf zu
 bekommen.
 
 ### Meisterinformationen 
+
 Ziehen Sie den Helden ein paar wenige (1W6) 
 LE ab und machen Sie Ihnen Ihre blauen
 Flecken, Feilchen und Beulen etwas
 schmackhaft.
 
 ### Spezielle Informationen 
+
 Als die Helden gerade um die nächste Ecke biegen
 hören Sie wie die Garether Stadtwachen die
 Taverne stürmen und mitmachen. 
@@ -133,6 +143,7 @@ Taverne stürmen und mitmachen.
 ## Wo ist der arme Vater?
 
 ### Meisterinformationen 
+
 Das vordringliche Ziel der Helden wird jetzt
 sein den alten Mann wiederzufinden von dem
 Sie wohl nur eins Wissen. Seine Tochter Irva
@@ -148,6 +159,7 @@ berichten um wen es sich handelt
 und wo sie suchen müssen.
 
 ### Allgemeine Informationen
+
 Das Haus von Arberd Vronfelden ist mit schönen
 Malereien um die Fenster verziert und ein
 schwerer bronzener Türklopfer lässt nach seiner
@@ -159,6 +171,7 @@ handeln muss. "Was wünscht Ihr?" ist die Frage,
 die der Mann euch stellt.
 
 ### Spezielle Informationen 
+
 Nach ein paar klärenden Worten bittet euch Arberd
 herein und ist sichtlich froh darüber, doch endlich
 ein paar der Aventurischen Helden gefunden zu
@@ -186,6 +199,7 @@ Ihn zur Rede zu stellen, sei aber nur unfreundlich
 abgewiesen worden.
 
 ### Meisterinformationen 
+
 Mit diesen Informationen müssen die Helden
 vorerst auskommen. Es empfiehlt sich ein
 Besuch bei Jurge Tischelmann der im südosten
@@ -194,6 +208,7 @@ der Stadt Geselle bei einem Schuhmacher ist.
 ## Suche nach Irva 
 
 ### Allgemeine Informationen 
+
 Ihr steht vor der Schusterei Bundischuh in der
 Jurge Tischelmann arbeiten soll. Beherzt tretet Ihr
 in den kleinen Laden ein. Sofort kommt euch ein
@@ -208,6 +223,7 @@ Süssigkeit an. "Wollt Ihr auch? Ich könnte dafür
 sterben!"
 
 ### Spezielle Informationen 
+
 Tatsächlich habt ihr Jurge Tischelmann bereits
 gefunden. Er verliert jedoch seine Freundlichkeit
 als er erfährt, dass es nicht um eure Schuhe, sondern
@@ -220,6 +236,7 @@ gesetzt hätte Diese komischen Flausen will er
 aber nicht erklären. Und kann es auch nicht 
 
 ### Meisterinformationen 
+
 Bei den erwähnten Flausen handelt es sich um
 stets obskure Ideen seitens Irva, die sich die
 tollsten Geschichten ausgedacht hat, ihrem
@@ -234,6 +251,7 @@ Helden aufsucht
 ## 5000 Dukaten Lösegeld 
 
 ### Allgemeine Informationen 
+
 Arberd Vronfelden scheint sehr erregt. Und mit
 teilweise stockendem Atem berichtet er euch, was
 mittlerweile vorgefallen ist. "Ich habe einen Brief
@@ -249,6 +267,7 @@ Geldes und meine Freilassung arrangiert werden,
 wird Dir in einem weiteren Schreiben mitgeteilt."
 
 ### Spezielle Informationen 
+
 Arberd wird sich bemühen das Geld aufzutreiben, 
 jedoch wird er euch jetzt 100 Dukaten zahlen, 
 wenn Ihr ihm Irva vorher wiederbringt. Außerdem
@@ -257,12 +276,14 @@ des Stadtteils zu besuchen, wo Irva dort zuletzt
 gesehen wurde.
 
 ### Meisterinformationen 
+
 Dieser Tip ist mal wieder die einzige Spur der
 die Helden nachgehen können. Tatsächlich
 können die Helden bei einer ausführlichen
 Fragerei so manches in Erfahrung bringen.
 
 ### Spezielle Informationen 
+
 - Irva war tatsächlich auf dem Markt. Die
 meisten Händler dort kennen sie als
 Stammkundin, da sie dort die Dinge kauft mit
@@ -277,6 +298,7 @@ nicht schnell verderblich
 Lakritz gekauft 
 
 ### Meisterinformationen 
+
 Spätestens die Information mit dem Lakritz lässt
 die Sache sehr anrüchig erscheinen, ist doch
 Jurge ziemlich verliebt in den schwarzen
@@ -289,6 +311,7 @@ einmal mehr Jurge Tischelmann aufzusuchen.
 ## Noch ein Schreiben 
 
 ### Allgemeine Informationen 
+
 Als Ihr den Schustereiladen betretet werdet Ihr
 direkt aufmerksam auf den etwas älteren, fettigen
 Mann, der dort lustlos ein paar lederne Stiefel
@@ -301,6 +324,7 @@ lassen. Na der soll sich nochmal hier blicken
 lassen"
 
 ### Spezielle Informationen 
+
 Jurge ist daraufhin abgehauen als er ein Schreiben
 per Bote gebracht bekam. Das Schreiben hat er
 gelesen, in den Ofen geschmissen und war weg. 
@@ -308,6 +332,7 @@ Der Meister Bundi weiss noch zu berichten, dass er
 Richtung Pferdeverleih Gegenüber gerannt wäre.
 
 ### Meisterinformationen 
+
 Im Ofen findet sich noch eine nicht verbrannte
 Ecke des Schreibens Man kann bei einem
 Vergleich deutlich erkennen, dass es sich um das
@@ -317,6 +342,7 @@ Irvas Handschrift handelt Das einzige Wort dass
 man noch entziffern kann ist "Silkw..." 
 
 ### Allgemeine Informationen 
+
 Beim Pferdeverleih findet Ihr nur einen kleinen
 Stallburschen der sichtlich vergnügt den Stall
 ausmistet. Er erzählt euch, dass ihr bei ihm keine
@@ -325,6 +351,7 @@ letzten beiden an den guten Jurge von Gegenüber
 verliehen hätte.
 
 ### Spezielle Informationen 
+
 Der Junge weiss leider nicht warum er die Pferde
 haben wollte, hat aber auch nicht gefragt als er
 einen Umschlag mit fünfzehn Silberstücken bekam, 
@@ -333,6 +360,7 @@ auszuleihen. Der Umschlag den er stolz zeigt ist
 aus dem gleichen Papier wie die Briefe von Irva 
 
 ### Meisterinformationen 
+
 Sollten die Helden immer noch keine Idee
 haben was sich hinter dem Rätsel verbirgt so
 kann Arberd oder der Stalljunge helfen 
@@ -340,7 +368,7 @@ kann Arberd oder der Stalljunge helfen
 meinen die sich südlich von Gareth erstrecken. 
 Auch gibt es da einen Ort der genauso heißt. 
 
-Um jetzt zumindest für den Meister klarheit zu
+Um jetzt zumindest für den Meister Klarheit zu
 schaffen: Irva hat sich selbst entführt Jurge, ist
 Mitwisser und Nutzniesser dieser Aktion, auch
 wenn Irva das ganze Spiel selbst geplant und
@@ -362,6 +390,7 @@ interessante Entdeckung machen.
 ## Nach Silkwiesen entführt 
 
 ### Meisterinformationen 
+
 Um noch mal etwas Action in das Abenteuer
 zu bekommen könnte es an dieser Stelle (auf
 dem Weg von Gareth nach Silkwiesen) mal
@@ -373,6 +402,7 @@ Abhängig von der Anzahl und der Erfahrung
 der Helden.
 
 ### Allgemeine Informationen 
+
 Das Dorf Silkwiesen hat nur eine einzige
 kombinierte Herberge und Taverne. Als Ihr diese
 betretet bemerkt Ihr sofort wie sich zwei
@@ -380,6 +410,7 @@ Gestalten, offenbar die Gesichter verdeckend, nach
 hinten durch die Küche gehen 
 
 ### Spezielle Informationen 
+
 Die Helden werden auf diesem Wege Irva und
 Jurge überraschen und beim Stall Gelegenheit
 haben, sie zu stellen. Die beiden sind zwar
@@ -387,6 +418,7 @@ bewaffnet, Dolche sollten aber keinerlei Problem
 für die Helden darstellen.
 
 ### Meisterinformationen 
+
 Wenn der Kampf vorüber ist taucht auch zufällig 
 Irvas Vater auf der sichtlich überrascht ist, 
 dass auch Irva und nicht nur Jurge zu den 
