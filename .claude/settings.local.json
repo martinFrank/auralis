@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn -q -Dtest=AdventureProviderTest test)",
+      "Bash(where mvn.cmd mvn)",
+      "Read(//c/Program Files/**)",
+      "Bash(\"C:/Program Files/JetBrains/IntelliJ IDEA 2026.1/plugins/maven/lib/maven3/bin/mvn.cmd\" -q -Dtest=AdventureProviderTest test)",
+      "Bash(\"C:/Program Files/JetBrains/IntelliJ IDEA 2026.1/plugins/maven/lib/maven3/bin/mvn.cmd\" -Dtest=AdventureProviderTest test)",
+      "Bash(mvn -q compile)",
+      "Bash(where mvn.cmd)",
+      "Bash(where mvn *)",
+      "Bash(mvn test-compile *)",
+      "Bash(command -v mvn.cmd)",
+      "Bash(mvn -q -DskipTests test-compile)"
+    ]
+  }
+}

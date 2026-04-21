@@ -47,12 +47,9 @@ public class AdventureSession {
         return Collections.unmodifiableList(transcript);
     }
 
-    public String handlePlayerInput(String playerInput) {
+    public void recordPlayerInput(String playerInput) {
         Objects.requireNonNull(playerInput, "playerInput");
         transcript.add(new Turn(Source.PLAYER, playerInput));
-        String reply = herold.chat(playerInput);
-        transcript.add(new Turn(Source.HEROLD, reply));
-        return reply;
     }
 
     public void recordAdventureFragment(String fragment) {

@@ -37,8 +37,8 @@ nachdem er sich hochgerappelt hat an den breiten
 Schädel und wankt von dannen nicht ohne vorher
 noch ein paarmal an die Hauswand angetitscht zu
 sein. Die Taverne scheint kaum noch Platz für
-euch frei zu haben. Da die Stimmung die nach
-außen dringt aber wirklich fröhlich ist wollt Ihr
+euch frei zu haben. Da die Stimmung, die nach
+außen dringt aber wirklich fröhlich ist, wollt Ihr
 auch rein zu den Garether Trunkenbolden. 
 
 ### Spezielle Informationen

@@ -3,7 +3,9 @@ package com.github.martinfrank.elitegames.auralis;
 import com.github.martinfrank.elitegames.auralis.adventure.AdventureProgress;
 import com.github.martinfrank.elitegames.auralis.adventure.AdventureProvider;
 import com.github.martinfrank.elitegames.auralis.adventure.HeadingNode;
+import com.github.martinfrank.elitegames.auralis.agent.AmbienteAgent;
 import com.github.martinfrank.elitegames.auralis.agent.HeroldAgent;
+import com.github.martinfrank.elitegames.auralis.agent.PlayerActionJudgeAgent;
 import com.github.martinfrank.elitegames.auralis.agent.ScenePrepareAgent;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
@@ -20,34 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AdventureSessionTest {
-
-    @Test
-    void recordsPlayerAndHeroldTurnsAndTracksChapterProgress() throws IOException {
-        AdventureProvider adventure = AdventureProvider.fromClasspath("entfuehr.md");
-        AdventureProgress progress = AdventureProgress.fromHeadingTree(adventure.getHeadingTree());
-        assertFalse(progress.chapters().isEmpty(), "expected H2 chapters in entfuehr.md");
-        assertEquals(progress.size(), progress.openChapters().size(), "all chapters start OPEN");
-
-        RecordingHeroldStub herold = new RecordingHeroldStub(adventure.getContent());
-        AdventureSession session = new AdventureSession(herold, adventure, progress);
-
-        String reply1 = session.handlePlayerInput("Ich betrete die Taverne.");
-        String reply2 = session.handlePlayerInput("Ich spreche den Wirt an.");
-
-        assertEquals("Stub-Antwort #1 auf: Ich betrete die Taverne.", reply1);
-        assertEquals("Stub-Antwort #2 auf: Ich spreche den Wirt an.", reply2);
-        assertEquals(List.of("Ich betrete die Taverne.", "Ich spreche den Wirt an."), herold.seenInputs);
-
-        List<AdventureSession.Turn> transcript = session.transcript();
-        assertEquals(4, transcript.size());
-        assertEquals(AdventureSession.Source.PLAYER, transcript.get(0).source());
-        assertEquals(AdventureSession.Source.HEROLD, transcript.get(1).source());
-        assertEquals(AdventureSession.Source.PLAYER, transcript.get(2).source());
-        assertEquals(AdventureSession.Source.HEROLD, transcript.get(3).source());
-
-        session.recordAdventureFragment("=== Kapitel-Text aus dem Abenteuerbuch ===");
-        assertEquals(AdventureSession.Source.ADVENTURE, session.transcript().get(4).source());
-    }
 
     @Test
     void markChapterExperiencedAdvancesNextOpenAndEventuallyFinishes() throws IOException {
@@ -112,10 +86,73 @@ class AdventureSessionTest {
 
         session.recordHeroldFragment(upcomingText.replace("\n", " "));
 
-
         List<AdventureSession.Turn> transcript = session.transcript();
-        System.out.println(transcript);
+        transcript.forEach(System.out::println);
+        System.out.println("----------------");
 
+        //----------------------------------
+
+        String playerInput = "wir versuchen uns einen platz zu suchen und ein paar getränke zu bestellen";
+//        String playerInput = "wir trinken unsere Getränke und geniessen die Stimmung.";
+//        String playerInput = "wir wollen den ganzen Abend in dieser Kneippe verbringen."; //hoffetlich ist das ein weiterführendes entscheidung
+//        String playerInput = "wir holen uns Getränke und warten darauf, was passiert"; //hoffetlich ist das ein weiterführendes entscheidung
+//        session.recordPlayerInput(playerInput);
+
+
+        String background = tavern.body();
+        String nextScene = tavern.children().get(2).body();
+
+        String judgeBackground = """
+                Aktuelles Kapitel: %s
+
+                === MEISTERINFORMATIONEN / HINTERGRUND ===
+                %s
+
+                === AKTUELLE SZENE / FOLGETEXT ===
+                %s
+                """.formatted(tavernTitle, background, nextScene);
+
+        PlayerActionJudgeAgent judge = new PlayerActionJudgeAgent(model);
+        PlayerActionJudgeAgent.Judgement judgement =
+                judge.judgeAction(judgeBackground, session.transcript(), playerInput);
+        System.out.println("=== JUDGEMENT ===");
+        System.out.println("Klassifikation: " + judgement.classification());
+        System.out.println("Begruendung:    " + judgement.begruendung());
+        System.out.println("Hinweis:        " + judgement.hinweisFuerHerold());
+        System.out.println("--- raw ---");
+        System.out.println(judgement.raw());
+        System.out.println("=== ENDE JUDGEMENT ===");
+
+        session.recordPlayerInput(playerInput);
+
+        int additionalCount = 2;
+
+        if (additionalCount < 2 &&
+                judgement.classification() == PlayerActionJudgeAgent.Classification.ERGAENZEND) {
+            AmbienteAgent ambiente = new AmbienteAgent(model);
+            String ambienteReply = ambiente.generateAmbiente(
+                    judgeBackground,
+                    session.transcript(),
+                    playerInput,
+                    judgement.hinweisFuerHerold());
+            System.out.println("=== AMBIENTE ===");
+            System.out.println(ambienteReply);
+            System.out.println("=== ENDE AMBIENTE ===");
+            session.recordHeroldFragment(ambienteReply);
+        }
+
+        if (additionalCount >= 2 || judgement.classification() == PlayerActionJudgeAgent.Classification.WEITERFUEHREND) {
+
+            String bgInfo = session.transcript().get(session.transcript().size()-2).content() + "\n"+
+                    session.transcript().getLast().content();
+
+            String nnexxtt = prep.prepareScene(tavernTitle, bgInfo, nextScene);
+            session.recordHeroldFragment(nnexxtt);
+            session.recordAdventureFragment(nextScene);
+        }
+
+//        List<AdventureSession.Turn> transcript = session.transcript();
+        transcript.forEach(System.out::println);
     }
 
 
