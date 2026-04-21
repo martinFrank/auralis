@@ -4,6 +4,7 @@ import com.github.martinfrank.elitegames.auralis.adventure.Adventure;
 import com.github.martinfrank.elitegames.auralis.adventure.AdventureParser;
 import com.github.martinfrank.elitegames.auralis.adventure.Chapter;
 import com.github.martinfrank.elitegames.auralis.adventure.Scene;
+import com.github.martinfrank.elitegames.auralis.agent.AmbienteAgent;
 import com.github.martinfrank.elitegames.auralis.agent.ClassifyActionAgent;
 import com.github.martinfrank.elitegames.auralis.agent.ScenePrepareAgent;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -49,22 +50,18 @@ class AdventureSessionTest {
 
         //erste AI interaktion: szene aufsetzen
         ScenePrepareAgent prep = new ScenePrepareAgent(model);
-        String introtext = prep.prepareScene(gareth.content(), scene1.common());
-        session.addHeroldMessage(introtext);
-        session.addHeroldMessage(scene1.common());
-
-        List<AdventureSession.Turn> transcript = session.transcript();
-        transcript.forEach(System.out::println);
-        System.out.println("----------------");
+        String introSzene1 = prep.prepareScene(gareth.content(), scene1.common());
+        session.addHeroldMessage(introSzene1);
+        session.addAdventureMessage(scene1.common());
 
 
-//        String playerInput = "wir versuchen uns einen platz zu ergattern und ein paar getränke zu bestellen";
+//        String playerInput = "wir versuchen uns einen platz zu ergattern und ein paar Getränke zu bestellen";
         String playerInput = "wir feiern und geniessen die Stimmung.";
 //        String playerInput = "wir wollen den ganzen Abend in dieser Kneippe verbringen."; //hoffetlich ist das ein weiterführendes entscheidung
 //        String playerInput = "wir holen uns Getränke und warten darauf, was passiert"; //hoffetlich ist das ein weiterführendes entscheidung
+//        String playerInput = "wir setzen uns an die Theke und bestellen Bier beim Wirt."; //hoffetlich ist das ein weiterführendes entscheidung
+//        String playerInput = "Wir fragen den Wirt nach Gerüchten"; //hoffetlich ist das ein weiterführendes entscheidung
         session.addPlayerMessage(playerInput);
-
-        // -----------
 
         ClassifyActionAgent classifyAgent = new ClassifyActionAgent(model);
 
@@ -72,23 +69,21 @@ class AdventureSessionTest {
                 classifyAgent.classifyAction(scene1, playerInput);
         System.out.println(classification);
 
-//        session.recordPlayerInput(playerInput);
-//
-//        int additionalCount = 2;
-//
-//        if (additionalCount < 2 &&
-//                judgement.classification() == ClassifyActionAgent.Classification.ERGAENZEND) {
-//            AmbienteAgent ambiente = new AmbienteAgent(model);
-//            String ambienteReply = ambiente.generateAmbiente(
-//                    judgeBackground,
-//                    session.transcript(),
-//                    playerInput,
-//                    judgement.hinweisFuerHerold());
-//            System.out.println("=== AMBIENTE ===");
-//            System.out.println(ambienteReply);
-//            System.out.println("=== ENDE AMBIENTE ===");
-//            session.recordHeroldFragment(ambienteReply);
-//        }
+        if (classification.classification() == ClassifyActionAgent.ClassificationType.TRIVIAL) {
+            AmbienteAgent ambiente = new AmbienteAgent(model);
+            String ambienteReply = ambiente.generateAmbiente(
+                    scene1,
+                    playerInput,
+                    classification.hinweisFuerHerold());
+            session.addHeroldMessage(ambienteReply);
+        }
+
+        //jetzt kommt die überleitung zur Szene 2
+
+        Scene scene2 = chapter.scenes().get(1);
+        String introSzene2 = prep.prepareScene(scene1.common(), scene2.common());
+        session.addHeroldMessage(introSzene2);
+        session.addAdventureMessage(scene2.common());
 //
 //        if (additionalCount >= 2 || judgement.classification() == ClassifyActionAgent.Classification.WEITERFUEHREND) {
 //
@@ -102,6 +97,10 @@ class AdventureSessionTest {
 //
 ////        List<AdventureSession.Turn> transcript = session.transcript();
 //        transcript.forEach(System.out::println);
+
+        List<AdventureSession.Turn> transcript = session.transcript();
+        transcript.forEach(System.out::println);
+        System.out.println("----------------");
     }
 //
 //

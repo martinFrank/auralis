@@ -174,15 +174,25 @@ public class ClassifyActionAgent {
     }
 
     private static String extractField(String body, String key, String nextKey) {
-        String stop = nextKey == null ? "\\z" : "(?=^\\s*\\**\\s*" + nextKey + "\\s*\\**\\s*:)";
+        String flexKey = umlautFlexible(key);
+        String stop = nextKey == null
+                ? "\\z"
+                : "(?=^\\s*\\**\\s*" + umlautFlexible(nextKey) + "\\s*\\**\\s*:)";
         Pattern p = Pattern.compile(
-                "(?ims)^\\s*\\**\\s*" + key + "\\s*\\**\\s*:\\s*(.*?)" + stop);
+                "(?ims)^\\s*\\**\\s*" + flexKey + "\\s*\\**\\s*:\\s*(.*?)" + stop);
         Matcher m = p.matcher(body);
         if (!m.find()) {
             return null;
         }
         String value = m.group(1).strip();
         return value.isEmpty() ? null : value;
+    }
+
+    private static String umlautFlexible(String key) {
+        return key
+                .replace("UE", "(?:UE|[Üü])")
+                .replace("OE", "(?:OE|[Öö])")
+                .replace("AE", "(?:AE|[Ää])");
     }
 
 }

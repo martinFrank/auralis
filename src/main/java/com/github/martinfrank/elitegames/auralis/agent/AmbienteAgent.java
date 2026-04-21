@@ -1,6 +1,6 @@
 package com.github.martinfrank.elitegames.auralis.agent;
 
-import com.github.martinfrank.elitegames.auralis.AdventureSession;
+import com.github.martinfrank.elitegames.auralis.adventure.Scene;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
@@ -40,21 +40,13 @@ public class AmbienteAgent {
               Gesten von Nebenfiguren, das Ergebnis der Spieleraktion im
               Kleinen (z. B. Getraenk wird gebracht, Blicke werden
               gewechselt, ein Lied beginnt).
-            - Halte die Antwort kompakt: ein kurzer Absatz. Schliesse
-              mit einer offenen Einladung an den Spieler (z. B.
-              "Was tust du?"), ohne den Plot anzubieten.
-            - Bleibe konsistent mit dem bisherigen Chat-Verlauf: Ort,
-              Tageszeit, anwesende Personen, bereits Gesagtes.
+            - Halte die Antwort kompakt: ein kurzer Absatz ohne den Plot anzubieten.
             """;
 
     private static final String USER_PROMPT_TEMPLATE = """
-            === HINTERGRUND / AKTUELLE SZENE ===
+            === AKTUELLE SZENE ===
             %s
-            === ENDE HINTERGRUND ===
-
-            === BISHERIGER CHAT-VERLAUF ===
-            %s
-            === ENDE CHAT-VERLAUF ===
+            === ENDE AKTUELLE SZENE ===
 
             === LETZTE SPIELERAKTION ===
             %s
@@ -83,37 +75,12 @@ public class AmbienteAgent {
         return new AmbienteAgent(model);
     }
 
-    public String generateAmbiente(String backgroundContext,
-                                   List<AdventureSession.Turn> transcript,
-                                   String playerAction,
-                                   String hinweisFuerHerold) {
-        Objects.requireNonNull(backgroundContext, "backgroundContext");
-        Objects.requireNonNull(transcript, "transcript");
-        Objects.requireNonNull(playerAction, "playerAction");
-        Objects.requireNonNull(hinweisFuerHerold, "hinweisFuerHerold");
-
-        String renderedTranscript = renderTranscript(transcript);
+    public String generateAmbiente(Scene scene, String playerInput, String heroldHint) {
         Response<AiMessage> response = model.generate(List.of(
                 SystemMessage.from(SYSTEM_PROMPT),
                 UserMessage.from(USER_PROMPT_TEMPLATE.formatted(
-                        backgroundContext, renderedTranscript, playerAction, hinweisFuerHerold))
+                        scene.content(), playerInput, heroldHint))
         ));
         return response.content().text();
-    }
-
-    private static String renderTranscript(List<AdventureSession.Turn> transcript) {
-        if (transcript.isEmpty()) {
-            return "(noch kein Verlauf)";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (AdventureSession.Turn turn : transcript) {
-            sb.append(switch (turn.source()) {
-                case HEROLD -> "HEROLD: ";
-                case PLAYER -> "SPIELER: ";
-                case ADVENTURE -> "ABENTEUER: ";
-            });
-            sb.append(turn.content().replace("\n", " ").strip()).append('\n');
-        }
-        return sb.toString().stripTrailing();
     }
 }
