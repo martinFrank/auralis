@@ -42,7 +42,7 @@ public class ScenePrepareAgent {
             """;
 
     private static final String USER_PROMPT_TEMPLATE = """
-            Bereite die Buehne fuer das Kapitel "%s" vor.
+            Bereite die Buehne fuer das naechste Kapitel vor.
 
             Der folgende Hintergrund liefert dir Meisterinformationen, Welt-Kontext
             oder bisherige Ereignisse. Nutze ihn nur, um die Uebergangsszene zu
@@ -78,13 +78,12 @@ public class ScenePrepareAgent {
         return new ScenePrepareAgent(model);
     }
 
-    public String prepareScene(String chapterTitle, String backgroundContext, String upcomingText) {
-        Objects.requireNonNull(chapterTitle, "chapterTitle");
+    public String prepareScene(String backgroundContext, String upcomingText) {
         Objects.requireNonNull(backgroundContext, "backgroundContext");
         Objects.requireNonNull(upcomingText, "upcomingText");
         Response<AiMessage> response = model.generate(List.of(
                 SystemMessage.from(SYSTEM_PROMPT),
-                UserMessage.from(USER_PROMPT_TEMPLATE.formatted(chapterTitle, backgroundContext, upcomingText))
+                UserMessage.from(USER_PROMPT_TEMPLATE.formatted(backgroundContext, upcomingText))
         ));
         return response.content().text();
     }

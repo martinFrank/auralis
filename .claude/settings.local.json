@@ -11,7 +11,10 @@
       "Bash(where mvn *)",
       "Bash(mvn test-compile *)",
       "Bash(command -v mvn.cmd)",
-      "Bash(mvn -q -DskipTests test-compile)"
+      "Bash(mvn -q -DskipTests test-compile)",
+      "Bash(mvn -q -Dtest=AdventureParserTest test)",
+      "PowerShell(Get-Command *)",
+      "Bash(git mv *)"
     ]
   }
 }
