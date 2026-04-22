@@ -43,14 +43,14 @@ public class ClassifyActionAgent {
         }
     }
 
-    public record Classification(ClassificationType classification,
-                                 String begruendung,
-                                 String hinweisFuerHerold,
+    public record Classification(ClassificationType classificationType,
+                                 String reason,
+                                 String heroldHints,
                                  String raw) {
         public Classification {
-            Objects.requireNonNull(classification, "classification");
-            Objects.requireNonNull(begruendung, "begruendung");
-            Objects.requireNonNull(hinweisFuerHerold, "hinweisFuerHerold");
+            Objects.requireNonNull(classificationType, "classificationType");
+            Objects.requireNonNull(reason, "reason");
+            Objects.requireNonNull(heroldHints, "heroldHints");
             Objects.requireNonNull(raw, "raw");
         }
     }
@@ -141,7 +141,7 @@ public class ClassifyActionAgent {
         Response<AiMessage> response = model.generate(List.of(
                 SystemMessage.from(SYSTEM_PROMPT),
                 UserMessage.from(USER_PROMPT_TEMPLATE.formatted(
-                        currentScene.content(), playerAction))
+                        currentScene.common(), playerAction))
         ));
         return parse(response.content().text());
     }

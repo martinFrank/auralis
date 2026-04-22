@@ -4,7 +4,7 @@ import com.github.martinfrank.elitegames.auralis.adventure.Adventure;
 import com.github.martinfrank.elitegames.auralis.adventure.AdventureParser;
 import com.github.martinfrank.elitegames.auralis.adventure.Chapter;
 import com.github.martinfrank.elitegames.auralis.adventure.Scene;
-import com.github.martinfrank.elitegames.auralis.agent.AmbienteAgent;
+import com.github.martinfrank.elitegames.auralis.agent.ActionResponseAgent;
 import com.github.martinfrank.elitegames.auralis.agent.ClassifyActionAgent;
 import com.github.martinfrank.elitegames.auralis.agent.ScenePrepareAgent;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,9 +25,13 @@ class AdventureSessionTest {
     void sessionTest() throws IOException {
 //        String OLLAMA_URL = "http://localhost:11434";
         String OLLAMA_URL = "http://192.168.0.251:11434";
-//        String MODEL = "Mistral-Small:latest";
+//        String MODEL = "mistral-Small:latest";
 //        String MODEL = "mistral:7b";
+//        String MODEL = "qwen3.5:27b";
         String MODEL = "qwen3:32b";
+//        String MODEL = "qwen3:30b";
+//        String MODEL = "gemma4:31b";
+//        String MODEL = "deepseek-r1:32b";
 
         ChatLanguageModel model = OllamaChatModel.builder()
                 .baseUrl(OLLAMA_URL)
@@ -44,64 +47,80 @@ class AdventureSessionTest {
         Scene gareth = intro.scenes().getFirst();
 
         Chapter chapter = adventure.chapters().get(1); //0 = intro, 1=taverne
-        System.out.println(chapter.title());
         Scene scene1 = chapter.scenes().getFirst();
-        System.out.println(scene1.title());
 
         //erste AI interaktion: szene aufsetzen
-        ScenePrepareAgent prep = new ScenePrepareAgent(model);
-        String introSzene1 = prep.prepareScene(gareth.content(), scene1.common());
-        session.addHeroldMessage(introSzene1);
+        ScenePrepareAgent prepareAgent = new ScenePrepareAgent(model);
+        String introSzene1 = prepareAgent.prepareScene(gareth.common(), scene1.common());
+        session.addHeroldMessage("[PREPARE_SCENE] "+introSzene1);
         session.addAdventureMessage(scene1.common());
 
 
-//        String playerInput = "wir versuchen uns einen platz zu ergattern und ein paar Getränke zu bestellen";
-        String playerInput = "wir feiern und geniessen die Stimmung.";
-//        String playerInput = "wir wollen den ganzen Abend in dieser Kneippe verbringen."; //hoffetlich ist das ein weiterführendes entscheidung
-//        String playerInput = "wir holen uns Getränke und warten darauf, was passiert"; //hoffetlich ist das ein weiterführendes entscheidung
-//        String playerInput = "wir setzen uns an die Theke und bestellen Bier beim Wirt."; //hoffetlich ist das ein weiterführendes entscheidung
-//        String playerInput = "Wir fragen den Wirt nach Gerüchten"; //hoffetlich ist das ein weiterführendes entscheidung
-        session.addPlayerMessage(playerInput);
+//        String playerInputScene1 = "wir versuchen uns einen platz zu ergattern und ein paar Getränke zu bestellen";
+//        String playerInputScene1 = "wir feiern und geniessen die Stimmung.";
+//        String playerInputScene1 = "wir wollen den ganzen Abend in dieser Kneippe verbringen."; //hoffetlich ist das ein weiterführendes entscheidung
+//        String playerInputScene1 = "wir holen uns Getränke und warten darauf, was passiert"; //hoffetlich ist das ein weiterführendes entscheidung
+//        String playerInputScene1 = "wir setzen uns an die Theke und bestellen Bier beim Wirt."; //hoffetlich ist das ein weiterführendes entscheidung
+        String playerInputScene1 = "Wir setzen uns an die Theke, bestellen Bier und fragen den Wirt nach Gerüchten"; //hoffetlich ist das ein weiterführendes entscheidung
+        session.addPlayerMessage(playerInputScene1);
 
         ClassifyActionAgent classifyAgent = new ClassifyActionAgent(model);
 
-        ClassifyActionAgent.Classification classification =
-                classifyAgent.classifyAction(scene1, playerInput);
-        System.out.println(classification);
+        ClassifyActionAgent.Classification classificationActionScene1 =
+                classifyAgent.classifyAction(scene1, playerInputScene1);
+        System.out.println("action type: "+classificationActionScene1.classificationType());
 
-        if (classification.classification() == ClassifyActionAgent.ClassificationType.TRIVIAL) {
-            AmbienteAgent ambiente = new AmbienteAgent(model);
-            String ambienteReply = ambiente.generateAmbiente(
-                    scene1,
-                    playerInput,
-                    classification.hinweisFuerHerold());
-            session.addHeroldMessage(ambienteReply);
-        }
+//        if (classificationActionScene1.classificationType() == ClassifyActionAgent.ClassificationType.TRIVIAL) {
+            ActionResponseAgent ambienteAgent = new ActionResponseAgent(model);
+            String ambienteReplyScene1 = ambienteAgent.generateTrivialResponse(
+                    scene1.common(),
+                    playerInputScene1,
+                    classificationActionScene1.heroldHints());
+            session.addHeroldMessage("[AMBIENT] "+ambienteReplyScene1);
+//        }
+
 
         //jetzt kommt die überleitung zur Szene 2
 
         Scene scene2 = chapter.scenes().get(1);
-        String introSzene2 = prep.prepareScene(scene1.common(), scene2.common());
-        session.addHeroldMessage(introSzene2);
+//        String introSzene2 = prepareAgent.prepareScene(scene1.common(), scene2.common());
+//        session.addHeroldMessage("[PREPARE_SCENE] "+introSzene2);
         session.addAdventureMessage(scene2.common());
-//
-//        if (additionalCount >= 2 || judgement.classification() == ClassifyActionAgent.Classification.WEITERFUEHREND) {
-//
-//            String bgInfo = session.transcript().get(session.transcript().size()-2).content() + "\n"+
-//                    session.transcript().getLast().content();
-//
-//            String nnexxtt = prep.prepareScene(tavernTitle, bgInfo, nextScene);
-//            session.recordHeroldFragment(nnexxtt);
-//            session.recordAdventureFragment(nextScene);
-//        }
-//
-////        List<AdventureSession.Turn> transcript = session.transcript();
-//        transcript.forEach(System.out::println);
 
-        List<AdventureSession.Turn> transcript = session.transcript();
-        transcript.forEach(System.out::println);
-        System.out.println("----------------");
+        String playerInputScene2 = "wir versuchen dem Mann hinterher zu laufen!";
+        session.addPlayerMessage(playerInputScene2);
+
+        ClassifyActionAgent.Classification classificationActionScene2 =
+                classifyAgent.classifyAction(scene2, playerInputScene2);
+        System.out.println("action type: "+classificationActionScene2.classificationType());
+
+//        if (classificationActionScene2.classificationType() == ClassifyActionAgent.ClassificationType.DETAIL_INFO) {
+//            AmbienteAgent ambienteAgent = new AmbienteAgent(model);
+            String ambienteReplyScene2 = ambienteAgent.generateTrivialResponse(
+                    scene2.common(),
+                    playerInputScene2,
+                    classificationActionScene2.heroldHints());
+            session.addHeroldMessage("[AMBIENT] "+ambienteReplyScene2);
+//        }
+
+        //übergang zu scene 3
+        System.out.println("------------------------");
+
+        Scene scene3 = chapter.scenes().get(2);
+        String introSzene3 = prepareAgent.prepareScene(scene2.common(), scene3.common());
+        session.addHeroldMessage("[PREPARE_SCENE] "+introSzene3);
+        session.addAdventureMessage(scene3.common());
+
+//        String playerInputScene3 = "wir versuchen uns aus der Kneipe zu schmuggeln, ohne, dass wir weiter in die Schlägerei verwickelt werden!";
+//        session.addPlayerMessage(playerInputScene3);
+//
+//
+//        ClassifyActionAgent.Classification classificationActionScene3 =
+//                classifyAgent.classifyAction(scene3, playerInputScene3);
+//        System.out.println(classificationActionScene2);
     }
+
+
 //
 //
 //    private static final class RecordingHeroldStub extends HeroldAgent {

@@ -88,7 +88,7 @@ Worten der Mann den Ihr immer noch nicht sehen
 könnt weiter gegen die Menge anbrüllt. Wer mir
 meine Irva wiederbringt der soll auch reich
 belohnt werden. Kurz darauf hört man nur das
-Quietschen der Tür Wahrscheinlich hat der Mann
+Quietschen der Tür. Wahrscheinlich hat der Mann
 resigniert.
 
 #### Spezielle Informationen

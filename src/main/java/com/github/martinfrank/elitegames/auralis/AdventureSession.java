@@ -1,13 +1,15 @@
 package com.github.martinfrank.elitegames.auralis;
 
-import com.github.martinfrank.elitegames.auralis.agent.HeroldAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class AdventureSession {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AdventureSession.class);
 
     public enum Source { PLAYER, HEROLD, ADVENTURE }
 
@@ -20,15 +22,20 @@ public class AdventureSession {
     }
 
     public void addPlayerMessage(String playerInput) {
-        turns.add(new Turn(Source.PLAYER, playerInput));
+        add(Source.PLAYER, playerInput);
     }
 
     public void addAdventureMessage(String message) {
-        turns.add(new Turn(Source.ADVENTURE, message));
+        add(Source.ADVENTURE, message);
     }
 
     public void addHeroldMessage(String message) {
-        turns.add(new Turn(Source.HEROLD, message));
+        add(Source.HEROLD, message);
     }
 
+    private void add(Source source, String content) {
+        Turn turn = new Turn(source, content);
+        LOG.info("[{}] {}", source, content);
+        turns.add(turn);
+    }
 }
