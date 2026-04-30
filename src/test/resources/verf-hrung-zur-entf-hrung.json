@@ -1,0 +1,282 @@
+{
+  "$schema": "/adventure-maker/adventure.schema.json",
+  "title": "Verführung zur Entführung",
+  "version": 1,
+  "author": "Oliver Eickenberg (1997)",
+  "description": "Ein Gruppenabenteuer in Aventurien (DSA). Mitten in Gareth wird die einzige Tochter des Händlers Arberd Vronfelden scheinbar entführt — oder ist mehr im Spiel? Geeignet als Einstiegsabenteuer (>100 AP für ersten Stufenanstieg). Spielzeit: ca. ein Abend.",
+  "startLocationId": "start",
+  "content": {
+    "initialState": {},
+    "locations": [
+      {
+        "id": "start",
+        "title": "Zentraler Platz im Handelsviertel",
+        "generalInfo": "Der Marktplatz liegt inmitten der Kaiserstadt und ist der Herzpunkt aller Aktivitäten. Er wird von einem großen, prächtigen Brunnen dominiert, der mit Figuren aus Bronze geschmückt ist. Die Wasserstrahlen des Brunnens springen aufwärts in einem bunten Spiel aus Licht und Wasser, beleuchtet durch das sanfte Licht, das von den umliegenden Gebäuden reflektiert wird. Um den Marktplatz herum stehen prachtvolle Gebäude, in denen sich luxuriöse Geschäfte, Gasthöfe und sogar das königliche Amt befinden\n\nDer Platz ist ein Treffpunkt für alle Schichten der Gesellschaft. An den Ständen des Marktes bietet man alles vom frischesten Obst und Gemüse bis hin zu hochwertigen Edelsteinen an. Die Atmosphäre ist lebendig, mit dem Läuten von Glöckchen bei jedem neuen Kauf, den Gesang der Händlerinnen beim Verkauf ihrer Waren und das Gelächter des Volksgeschehens.",
+        "specialInfo": "",
+        "masterInfo": "",
+        "onEnter": [],
+        "onExit": [],
+        "transitions": [
+          {
+            "to": "e5815fa0-1885-46a1-b477-ea5ddcee04e2"
+          },
+          {
+            "to": "91b35e74-cca1-41c3-89b5-119a3194d757"
+          },
+          {
+            "to": "0bd69e14-713c-4c65-ab28-898eb9d4a381"
+          }
+        ],
+        "items": [],
+        "persons": []
+      },
+      {
+        "id": "e5815fa0-1885-46a1-b477-ea5ddcee04e2",
+        "title": "Taverne zum tanzenden Stier",
+        "generalInfo": "",
+        "specialInfo": "",
+        "masterInfo": "",
+        "onEnter": [],
+        "onExit": [],
+        "transitions": [
+          {
+            "to": "start"
+          }
+        ],
+        "items": [],
+        "persons": []
+      },
+      {
+        "id": "91b35e74-cca1-41c3-89b5-119a3194d757",
+        "title": "Waffenladen zur Eiserne Jungfrau",
+        "generalInfo": "Die Eiserne Jungfrau befindet sich in einem kleinen, aber gut gepflegten Gebäude mit schwarzem Fachwerk und einem steilen Dach aus roten Ziegeln. Über der Tür prangt ein wunderschönes Schild mit dem Bild einer Jungfrau, die einen Schwert schmiedet. Die Fenster sind mit Eisenbarren gesichert und die Tür selbst ist stark und gut verriegelt.\n\nAls du in den Laden gehst, bemerkst du sofort die Vielfalt an Waffen und Rüstungen, die von den Wänden bis zum Boden reichen. Es riecht nach Schmiedehitze, Öl und Metall. Du wirst von Angrella selbst begrüßt, einer erfahrenen und ehrbaren Schmiedin mit einem warmen Lächeln.\n\nDer Laden bietet eine breite Palette an Waffen und Rüstungen ",
+        "specialInfo": "Die Preise sind deutlich höher als in den Provinzen, aber die Qualität ist durchwegs gut!",
+        "masterInfo": "",
+        "onEnter": [],
+        "onExit": [],
+        "transitions": [
+          {
+            "to": "start"
+          }
+        ],
+        "items": [],
+        "persons": [
+          {
+            "personId": "b21f41a3-ed03-4883-a33f-96e2c43c488c"
+          }
+        ]
+      },
+      {
+        "id": "0bd69e14-713c-4c65-ab28-898eb9d4a381",
+        "title": "Taverne Weisser Walfisch",
+        "generalInfo": "Die Taverne ist ein alter Steinbau mit einem spitzen Dach und einer großen Eingangstür, über der das Wappen eines weissen Wals in schwarzem Holz prangt. Drinnen herrscht eine gemütliche Atmosphäre: die Mauern sind mit Fellen tapeziert, die Tische sind von Lampen beleuchtet und die Luft ist dick von dem Duft von Bratfleisch und Bier. Der Wirt selbst, ein gutmütiger Mann namens Gundolf, bedient seine Gäste gerne mit einem Lächeln und einer Geschichte, sobald er Zeit dazu findet.",
+        "specialInfo": "An der Theke sitzt Bjoern Skaldottir, er weiss wer der gesuchte Vater ist.\nDer Wirt weiss auch, wer der verzweifelte Vater ist.",
+        "masterInfo": "",
+        "onEnter": [],
+        "onExit": [],
+        "transitions": [
+          {
+            "to": "start"
+          }
+        ],
+        "items": [],
+        "persons": [
+          {
+            "personId": "3c7fd726-8d77-4bb0-950f-eb22aaa2f443"
+          },
+          {
+            "personId": "aa5f1044-f47c-4dd5-8dca-761a2aa28b6f"
+          }
+        ]
+      }
+    ],
+    "persons": [
+      {
+        "id": "b21f41a3-ed03-4883-a33f-96e2c43c488c",
+        "name": "Angrella der Schmiedin",
+        "generalInfo": "Angrella, die ehrgeizige und fachkundige Schmiedin, sie führt die Schmiede zur eisenen Jungfrau. Mit ihren mächtigen Armen und ihrer unermüdlichen Arbeitsweise ist sie bekannt für ihre Meisterstücke: scharfe Klingen, stabile Speere und glühende Öfen. Ihre Leidenschaft für das Feuer und die Metallarbeit hat sie zu einer der respektiertesten Handwerkerinnen der Kaiserstadt Gareth gemacht.",
+        "specialInfo": "",
+        "masterInfo": ""
+      },
+      {
+        "id": "a78d8f06-9988-4d2e-8b7f-60ff3fccf312",
+        "name": "Romosch der Wirt",
+        "generalInfo": "Romosch, Sohn des Gramlon, ein Zwerg den es nach drei erfolglosen Brautwerbung ins menschliche Singledasein verschlagen hat.",
+        "specialInfo": "Er kennt den neuesten Klatsch und Tratsch wobei seine grössten Interessen dem Schmiedehandwerk gelten. Und Angrella die Schmiedin im Norden der Stadt soll einen Zweihänder erschaffen haben, diese langen Schwerter mit denen nur die Riesen umgehen können.",
+        "masterInfo": ""
+      },
+      {
+        "id": "3c7fd726-8d77-4bb0-950f-eb22aaa2f443",
+        "name": "Bjoern Skaldottir",
+        "generalInfo": "Bjoern Skaldottir, Thorwaler, Gast im weissen Walfisch, weiss, dass der verzweifelte Vater Arberd Vronfelden ist und einen Laden in GarethHandelsplatz hat.",
+        "specialInfo": "Er besucht seine Schwester, Haggard Skaldottir, die demnächst heiraten will.",
+        "masterInfo": ""
+      },
+      {
+        "id": "aa5f1044-f47c-4dd5-8dca-761a2aa28b6f",
+        "name": "Gundolf Attermen",
+        "generalInfo": "Gundolf Attermen, Wirt des weissen Walfisch, weiss, dass der verzweifelte Vater Arberd Vronfelden ist und einen Laden in GarethHandelsplatz hat.",
+        "specialInfo": "er verkauft einen vorzüglichen Wein",
+        "masterInfo": ""
+      },
+      {
+        "id": "7bdc680b-0198-405c-8ee3-5392c5d6ab8c",
+        "name": "Arberd Vronfelden",
+        "generalInfo": "",
+        "specialInfo": "",
+        "masterInfo": ""
+      }
+    ],
+    "items": [],
+    "flags": [
+      {
+        "id": "walk_to_tavern",
+        "description": "",
+        "initialValue": false
+      },
+      {
+        "id": "party_bonus",
+        "description": "",
+        "initialValue": false
+      },
+      {
+        "id": "await_arberds_intro",
+        "description": "",
+        "initialValue": false
+      },
+      {
+        "id": "brawling_bonus",
+        "description": "",
+        "initialValue": false
+      },
+      {
+        "id": "escape_the_brawl",
+        "description": "",
+        "initialValue": false
+      },
+      {
+        "id": "found_arberds_address",
+        "description": "",
+        "initialValue": false
+      },
+      {
+        "id": "ready_to_visit_arberds",
+        "description": "",
+        "initialValue": false
+      }
+    ],
+    "questbook": {
+      "mainQuest": {
+        "title": "Verführung zur Entführung",
+        "description": "Mitten in Gareth liegt der kleine Kontor des Händlers Arberd Vronfelden, der Schauplatz eines Verbrechens werden wird: Die Entführung seiner einzigen Tochter Irva. Während die Büttel der Kaiserstadt vergeblich bemüht sind, sowohl Täter als auch Opfer zu finden, können die Helden versuchen, das Rätsel zu lösen — und sollen dafür reich belohnt werden."
+      },
+      "quests": [
+        {
+          "id": "7a91e163-860f-4db0-b231-08d76123afdb",
+          "title": "Ein Abend in der Taverne",
+          "generalInfo": "Die Helden wollen am Abend in Gareth in eine Taverne gehen - es ist Zeit, dass sich die Helden auch endlich mal wieder amüsierern. Das Abenteuer beginnt auf dem Marktplatz von Gareth",
+          "specialInfo": "Das Abenteuer beginnt Nachmittags und falls die Helden vorher noch Einkäufe tätigen oder andere Erledigungen machen wollen, ist noch genug Zeit sich in der Kaiserstadt Gareth umzusehen.\n\nWenn die Helden die Bewohner der Stadt fragen, welche Taverne die beste ist, wird ihnen die Taverne zum tanzenden Stier genannt",
+          "masterInfo": "",
+          "completionCondition": {
+            "flag": "walk_to_tavern",
+            "equals": true
+          },
+          "tasks": [
+            {
+              "id": "95d7b00f-3914-4e65-9986-4eca8f73c600",
+              "description": "besucht die Taverne \"zum tanzenden Ochsen\""
+            }
+          ]
+        },
+        {
+          "id": "5ce0f5a5-a9d4-467a-bfc8-85019aab6aff",
+          "title": "die Taverne zum Tanzenden Stier",
+          "generalInfo": "Als Ihr die Tür zu der Taverne öffnen wollt kommt mit dieser gleich der erste betrunkenen Gast mit aus der brechend vollen Taverne heraus gepurzelt. Er flucht ein paar unverständliche Worte, faßt sich nachdem er sich hochgerappelt hat an den breiten Schädel und wankt von dannen nicht ohne vorher noch ein paarmal an die Hauswand angetitscht zu sein. Die Taverne scheint kaum noch Platz für euch frei zu haben. Da die Stimmung die nach außen dringt aber wirklich fröhlich ist wollt Ihr auch rein zu den Garether Trunkenbolden. ",
+          "specialInfo": "Sollten sich die Helden zu der Theke durchkämpfen können so kommt es zu einem Gespräch mit dem Wirt Romosch Sohn des Gramlon ein Zwerg den es nach drei Erfolglosen Brautwerbung ins menschliche Singledasein verschlagen hat. Das erzählt er so jedem der ihn nicht danach fragt.  Andere Gesprächspartner wird es wohl kaum geben, denn in den Adern der bunt gemischten Gäste fließt nunmehr schon mehr Alkohol als Blut ",
+          "masterInfo": "",
+          "startCondition": {
+            "flag": "walk_to_tavern",
+            "equals": true
+          },
+          "tasks": [
+            {
+              "id": "25dde221-5b3b-4ca9-bb7c-e5c8383027b7",
+              "description": "Trinkt und geniesst die Stimmung",
+              "completionCondition": {
+                "flag": "party_bonus",
+                "equals": true
+              }
+            },
+            {
+              "id": "d9fd41e4-ebe6-4339-b826-c6f3cc2cdcb4",
+              "description": "bleibt bis Mitternacht",
+              "completionCondition": {
+                "flag": "await_arberds_intro",
+                "equals": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "c4ed911d-f724-40f2-9fb8-5b20a2e82ff9",
+          "title": "Der verzweifelten Vater",
+          "generalInfo": "Kaum wahrnehmbar ist in dem Lärm das quietschen und knarren der Türe, was euch aber trotzdem auffällt, da es der erste Gast ist, der sich nach euch das erste mal in den Gasthof zu trauen scheint. Nach kurzer Zeit hört Ihr jedoch eine Stimme rufen die offensichtlich einem Mann mittleren Alters gehört eben jenem der wohl nicht weiter als bis zur Türe gekommen ist. \"Hört mich an Ihr Männer und Frauen Gareths! Man hat mir meinen einzigen Schatz gestohlen. Meine Tochter ist entführt worden.\" Als ob \"meine Tochter ist entführt worden\" das belangloseste der Welt wäre, setzt danach wieder eifriges Gemurmel ein, so dass Ihr kaum noch verstehen könnt mit welchen Worten der Mann den Ihr immer noch nicht sehen könnt weiter gegen die Menge anbrüllt. \"Wer mir meine Irva wiederbringt der soll auch reich belohnt werden\". Kurz darauf hört man nur das Quietschen der Tür. Wahrscheinlich hat der Mann resigniert.",
+          "specialInfo": "Erwartungsgemäss sollten sich die Helden nun bemühen dem Mann hinterher zu kommen, was aber umso schwieriger ist als man es sich vorstellt. Denn sobald die Helden an den vielen betrunkenen Körper vorbeiwollen wird es automatisch zu ein wenig Rempelei kommen. Und das bedeutet nur eins in einer Kneipe voller Trunkenbolde Ein zünftige Schlägerei bricht aus.",
+          "masterInfo": "Diesen Kampf sollten die Helden genau wie die anderen führen Mit den Fäusten und schlimmstenfalls mit einem zerbrochenen Stuhlbein. Magiebegabte sollten sich mit so lieben Sachen wie dem BANBALADIN begnügen. Übrigens gibt es in diesem Kampf keine festen Gegner. Nachdem der ganze Raum in Fahrt ist, schlagen die Jungs auch gerne gegenseitig auf sich ein. Der einzige der das gar nicht gut findet ist der Wirt. Er wird sich bestimmt eine neue Einrichtung zulegen müssen. Sollten die Helden zu stark zu den Waffen greifen, dann kann der Kampf gerne von den auftauchenden Stadtwachen unterbunden werden. In diesem Fall sind sich alle anwesenden Einig, nämlich dass die Helden den Streit angefangen haben Im Normalfall (nicht ohne Folgen) sollten man den Helden aber folgenden Gelegenheit zur Flucht lassen",
+          "startCondition": {
+            "flag": "await_arberds_intro",
+            "equals": true
+          },
+          "tasks": [
+            {
+              "id": "48338b99-14c5-4a9a-a7f5-94bb0d9c00ad",
+              "description": "Beteilige dich an der Schlägerei",
+              "optional": true,
+              "completionCondition": {
+                "flag": "brawling_bonus",
+                "equals": true
+              }
+            },
+            {
+              "id": "7004cc0c-8731-43fd-ae89-61b0db13161f",
+              "description": "Entkomme der Schlägerei und verlasse die Kneipe auf der Suche nach den Mann",
+              "completionCondition": {
+                "flag": "escape_the_brawl",
+                "equals": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "1f5858e2-a28c-4f2b-b435-01b9051adf20",
+          "title": "Die Suche nach dem Vatern",
+          "generalInfo": "Mittlerweile scheint es als gälte nun die Regel \"Jeder gegen Jeden\" und so kloppen sich die meisten Tavernengäste untereinander und keiner interessiert sich mehr für euch. Ihr schmuggelt euch also langsam Richtung Tür um an der frischen Luft wieder etwas klaren Kopf zu bekommen.\n\nAls die Helden gerade um die nächste Ecke biegen hören Sie wie die Garether Stadtwachen die Taverne stürmen und mitmachen.",
+          "specialInfo": "",
+          "masterInfo": "Das vordringliche Ziel der Helden wird jetzt sein den alten Mann wiederzufinden von dem Sie wohl nur eins Wissen. Seine Tochter Irva ist entführt. Tatsächlich scheint der Händler in so gut wie jeder Garether Taverne gewesen zu sein, denn schon bei der nächsten Taverne (weisser Walfisch) kann ein anderer Gast (Bjoern Skaldottir, Thorwaler) oder der Wirt Gundolf Attermen berichten um wen es sich handelt und wo sie suchen müssen. \n\nNachdem sie die Information erhalten haben sollten sie dort auch übernachten, damit sie am nächsten Tag Arberd Vronfelden besuchen können.",
+          "startCondition": {
+            "flag": "escape_the_brawl",
+            "equals": true
+          },
+          "tasks": [
+            {
+              "id": "ebab3d53-bbd5-4649-9c94-72d263ea04e2",
+              "description": "Fragt in der Taverne Weisser Walfisch nach dem Vater",
+              "completionCondition": {
+                "flag": "found_arberds_address",
+                "equals": true
+              }
+            },
+            {
+              "id": "c3797c2b-eaed-4279-9a40-81e88afcdd14",
+              "description": "Übernachtet in der Taverne Weisser Walfisch",
+              "completionCondition": {
+                "flag": "ready_to_visit_arberds",
+                "equals": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

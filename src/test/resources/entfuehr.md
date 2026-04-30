@@ -56,8 +56,8 @@ Gramlon ein Zwerg den es nach drei Erfolglosen
 Brautwerbung ins menschliche Singledasein
 verschlagen hat Das erzählt er so jedem der ihn
 nicht danach fragt Außerdem kennt er den
-neuesten Klatsch und Tratsch wobei seine gr ten
-Interessen dem Schmiedehandwerk gelten Und
+neuesten Klatsch und Tratsch wobei seine grössten
+Interessen dem Schmiedehandwerk gelten. Und
 Angrella die Schmiedin im Norden der Stadt soll
 einen Zweihänder erschaffen haben diese langen
 Schwerter mit denen nur die Riesen umgehen
@@ -150,7 +150,7 @@ Als die Helden gerade um die nächste Ecke biegen
 hören Sie wie die Garether Stadtwachen die
 Taverne stürmen und mitmachen. 
 
-## Wo ist der arme Vater?
+## Kapitel 2: Wo ist der arme Vater?
 
 ### Szene 1: Suche nach dem Vater
 
@@ -219,7 +219,7 @@ vorerst auskommen. Es empfiehlt sich ein
 Besuch bei Jurge Tischelmann der im südosten
 der Stadt Geselle bei einem Schuhmacher ist.
 
-## Suche nach Irva 
+## Kapitel 3: Suche nach Irva 
 
 ### Szene 1: Der Freund von Irva
 
@@ -264,7 +264,7 @@ bis sie noch einmal mit Vater Vronfelden
 kontakt aufnehmen oder der Händler die
 Helden aufsucht 
 
-## 5000 Dukaten Lösegeld
+## Kapitel 4: 5000 Dukaten Lösegeld
 
 ### Szene 1: Zurück zum Vater
 
@@ -328,7 +328,7 @@ dass Irva sich auf eine längere Abwesenheit
 eingestellt hat. Jedenfalls ist es nun ratsam
 einmal mehr Jurge Tischelmann aufzusuchen. 
 
-## Noch ein Schreiben 
+## Kapitel 5: Noch ein Schreiben 
 
 ### Szene 1: erneuter Besuch bei Jurge
 
@@ -411,7 +411,7 @@ wenn die Helden jetzt schalten werden Sie sich
 schnell nach Silkwiesen begeben wo sie eine
 interessante Entdeckung machen.
 
-## Nach Silkwiesen entführt 
+## Kapitel 6: Nach Silkwiesen entführt 
 
 ### Szene 1: überfall auf dem Weg (Optional)
 

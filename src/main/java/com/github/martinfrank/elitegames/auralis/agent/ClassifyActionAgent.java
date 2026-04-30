@@ -1,6 +1,5 @@
 package com.github.martinfrank.elitegames.auralis.agent;
 
-import com.github.martinfrank.elitegames.auralis.adventure.Scene;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
@@ -137,11 +136,10 @@ public class ClassifyActionAgent {
         return new ClassifyActionAgent(model);
     }
 
-    public Classification classifyAction(Scene currentScene, String playerAction) {
+    public Classification classifyAction(String sceneText, String playerAction) {
         Response<AiMessage> response = model.generate(List.of(
                 SystemMessage.from(SYSTEM_PROMPT),
-                UserMessage.from(USER_PROMPT_TEMPLATE.formatted(
-                        currentScene.common(), playerAction))
+                UserMessage.from(USER_PROMPT_TEMPLATE.formatted(sceneText, playerAction))
         ));
         return parse(response.content().text());
     }

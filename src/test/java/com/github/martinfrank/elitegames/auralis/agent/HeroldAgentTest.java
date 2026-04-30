@@ -1,6 +1,5 @@
-package com.github.martinfrank.elitegames.auralis;
+package com.github.martinfrank.elitegames.auralis.agent;
 
-import com.github.martinfrank.elitegames.auralis.agent.HeroldAgent;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import org.junit.jupiter.api.Test;

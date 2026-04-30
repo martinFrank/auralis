@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elite-games.github.io/adventure-maker/adventure.schema.json",
+  "title": "Adventure",
+  "description": "Schema für ein vom Adventure Maker exportiertes Rollenspiel-Abenteuer.",
+  "type": "object",
+  "required": ["title", "version", "startLocationId", "content"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid", "description": "UUID. Beim Import optional — wird vom Server neu vergeben." },
+    "title": { "type": "string" },
+    "slug": { "type": "string" },
+    "version": { "type": "integer", "minimum": 0 },
+    "author": { "type": "string" },
+    "description": { "type": "string" },
+    "startLocationId": { "type": "string", "description": "ID der Start-Location innerhalb von content.locations." },
+    "content": { "$ref": "#/$defs/Content" },
+    "createdAt": { "type": "string", "format": "date-time", "readOnly": true },
+    "updatedAt": { "type": "string", "format": "date-time", "readOnly": true }
+  },
+  "$defs": {
+    "Content": {
+      "type": "object",
+      "required": ["initialState", "locations", "persons", "items", "flags"],
+      "properties": {
+        "initialState": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Startwerte beliebiger Variablen für die Spiel-Engine."
+        },
+        "locations": { "type": "array", "items": { "$ref": "#/$defs/Location" } },
+        "persons": { "type": "array", "items": { "$ref": "#/$defs/Person" } },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/Item" } },
+        "flags": { "type": "array", "items": { "$ref": "#/$defs/Flag" } },
+        "questbook": { "$ref": "#/$defs/Questbook" }
+      }
+    },
+
+    "Item": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "generalInfo": { "type": "string" },
+        "specialInfo": { "type": "string" },
+        "masterInfo": { "type": "string" },
+        "properties": { "type": "object", "additionalProperties": true }
+      }
+    },
+
+    "Person": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "generalInfo": { "type": "string" },
+        "specialInfo": { "type": "string" },
+        "masterInfo": { "type": "string" },
+        "properties": { "type": "object", "additionalProperties": true }
+      }
+    },
+
+    "Flag": {
+      "type": "object",
+      "required": ["id", "initialValue"],
+      "properties": {
+        "id": { "type": "string", "description": "Sprechender Flag-Name, in Conditions/Effects als Referenz benutzt." },
+        "description": { "type": "string" },
+        "initialValue": { "type": "boolean" }
+      }
+    },
+
+    "Questbook": {
+      "type": "object",
+      "required": ["mainQuest", "quests"],
+      "properties": {
+        "mainQuest": { "$ref": "#/$defs/MainQuest" },
+        "quests": { "type": "array", "items": { "$ref": "#/$defs/Quest" } }
+      }
+    },
+
+    "MainQuest": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+
+    "Quest": {
+      "type": "object",
+      "required": ["id", "title", "tasks"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "generalInfo": { "type": "string" },
+        "specialInfo": { "type": "string" },
+        "masterInfo": { "type": "string" },
+        "startCondition": { "$ref": "#/$defs/Condition" },
+        "completionCondition": { "$ref": "#/$defs/Condition" },
+        "tasks": { "type": "array", "items": { "$ref": "#/$defs/QuestTask" } },
+        "optional": { "type": "boolean" }
+      }
+    },
+
+    "QuestTask": {
+      "type": "object",
+      "required": ["id", "description"],
+      "properties": {
+        "id": { "type": "string" },
+        "description": { "type": "string" },
+        "completionCondition": { "$ref": "#/$defs/Condition" },
+        "optional": { "type": "boolean" }
+      }
+    },
+
+    "Location": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "generalInfo": { "type": "string" },
+        "specialInfo": { "type": "string" },
+        "masterInfo": { "type": "string" },
+        "onEnter": { "type": "array", "items": { "$ref": "#/$defs/Effect" } },
+        "onExit": { "type": "array", "items": { "$ref": "#/$defs/Effect" } },
+        "transitions": { "type": "array", "items": { "$ref": "#/$defs/Transition" } },
+        "persons": { "type": "array", "items": { "$ref": "#/$defs/PersonPresence" } },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/ItemPresence" } }
+      }
+    },
+
+    "Transition": {
+      "type": "object",
+      "required": ["to"],
+      "properties": {
+        "to": { "type": "string" },
+        "label": { "type": "string" },
+        "condition": { "$ref": "#/$defs/Condition" },
+        "check": { "$ref": "#/$defs/Check" },
+        "effects": { "type": "array", "items": { "$ref": "#/$defs/Effect" } }
+      }
+    },
+
+    "PersonPresence": {
+      "type": "object",
+      "required": ["personId"],
+      "properties": {
+        "personId": { "type": "string" },
+        "condition": { "$ref": "#/$defs/Condition" }
+      }
+    },
+
+    "ItemPresence": {
+      "type": "object",
+      "required": ["itemId"],
+      "properties": {
+        "itemId": { "type": "string" },
+        "condition": { "$ref": "#/$defs/Condition" }
+      }
+    },
+
+    "Check": {
+      "type": "object",
+      "required": ["attribute", "difficulty"],
+      "properties": {
+        "attribute": { "type": "string" },
+        "difficulty": { "type": "integer" }
+      }
+    },
+
+    "Condition": {
+      "description": "Bedingung. Genau eine der Varianten flag/item/attribute/allOf/anyOf/not.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["flag"],
+          "properties": {
+            "flag": { "type": "string", "description": "Referenziert Flag.id." },
+            "equals": {}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["item"],
+          "properties": {
+            "item": { "type": "string", "description": "Referenziert Item.id." },
+            "min": { "type": "integer", "minimum": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["attribute"],
+          "properties": {
+            "attribute": { "type": "string" },
+            "gte": { "type": "integer" },
+            "lte": { "type": "integer" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["allOf"],
+          "properties": {
+            "allOf": { "type": "array", "items": { "$ref": "#/$defs/Condition" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["anyOf"],
+          "properties": {
+            "anyOf": { "type": "array", "items": { "$ref": "#/$defs/Condition" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["not"],
+          "properties": {
+            "not": { "$ref": "#/$defs/Condition" }
+          }
+        }
+      ]
+    },
+
+    "Effect": {
+      "description": "Spielzustands-Mutation. Diskriminator: kind.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "name", "value"],
+          "properties": {
+            "kind": { "const": "setFlag" },
+            "name": { "type": "string", "description": "Referenziert Flag.id." },
+            "value": {}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "name", "value"],
+          "properties": {
+            "kind": { "const": "setVar" },
+            "name": { "type": "string" },
+            "value": {}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "name", "by"],
+          "properties": {
+            "kind": { "const": "incVar" },
+            "name": { "type": "string" },
+            "by": { "type": "number" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "itemId"],
+          "properties": {
+            "kind": { "const": "giveItem" },
+            "itemId": { "type": "string" },
+            "quantity": { "type": "integer", "minimum": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "itemId"],
+          "properties": {
+            "kind": { "const": "removeItem" },
+            "itemId": { "type": "string" },
+            "quantity": { "type": "integer", "minimum": 1 }
+          }
+        }
+      ]
+    }
+  }
+}
