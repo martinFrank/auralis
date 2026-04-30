@@ -77,10 +77,13 @@ public class SetupQuestAgent {
                 nullToEmpty(time),
                 nullToEmpty(startLocation.generalInfo())
         );
+        long now = System.currentTimeMillis();
         Response<AiMessage> response = model.generate(List.of(
                 SystemMessage.from(SYSTEM_PROMPT),
                 UserMessage.from(prompt)
         ));
+        long duration = System.currentTimeMillis() - now;
+        System.out.println("duration: " + duration+"ms");
         return response.content().text();
     }
 

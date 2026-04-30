@@ -18,6 +18,7 @@ public class SetupQuestAgentTest {
 //    private static final String MODEL = "qwen3:30b";
     private static final String MODEL = "qwen2.5:7b"; //gut
     //    private static final String MODEL = "llama3.1:8b"; //gut
+//    private static final String MODEL = "qwen3:32b"; //von cahtgpt empfohlen - SPILL
     private static final String RESOURCE = "/verf-hrung-zur-entf-hrung.json";
 
     @Test

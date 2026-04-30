@@ -31,7 +31,12 @@
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'expected|FAILED|but was|AssertionFailedError|Tests run:' | Select-Object -Last 15)",
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'BUILD|Tests run:|ERROR|FAIL' | Select-Object -Last 8)",
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'expected|but was|FAILED|Tests run:' | Select-Object -Last 8)",
-      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q compile 2>&1 | Select-String -Pattern 'BUILD|ERROR' | Select-Object -Last 5)"
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q compile 2>&1 | Select-String -Pattern 'BUILD|ERROR' | Select-Object -Last 5)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=ClassifyInputAgentTest' test 2>&1 | Select-String -Pattern 'BUILD|Tests run:|ERROR|FAIL' | Select-Object -Last 8)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q test-compile 2>&1 | Select-String -Pattern 'BUILD|ERROR' | Select-Object -Last 5)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=ClassifyInputAgentTest#testMyWords' test 2>&1 | Select-Object -Last 120)",
+      "PowerShell(curl.exe -s http://192.168.0.251:11434/api/ps)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=ClassifyInputAgentTest#testMyWords' test 2>&1 | Select-String -Pattern 'took|Tests run:|BUILD' | Select-Object -Last 5)"
     ]
   }
 }
