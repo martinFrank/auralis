@@ -4,6 +4,8 @@ import com.github.martinfrank.elitegames.auralis.adventure.Adventure;
 import com.github.martinfrank.elitegames.auralis.adventure.AdventureReader;
 import com.github.martinfrank.elitegames.auralis.agent.Agents;
 import com.github.martinfrank.elitegames.auralis.agent.ScenePrepareAgent;
+import com.github.martinfrank.elitegames.auralis.agent.SetupQuestAgent;
+import com.github.martinfrank.elitegames.auralis.agent.SetupQuestAgentTest;
 import com.github.martinfrank.elitegames.auralis.character.Adventurer;
 import com.github.martinfrank.elitegames.auralis.character.Party;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -33,7 +35,7 @@ class GameEngineTest {
                 .timeout(Duration.ofMinutes(5))
                 .build();
         Agents agents = new Agents();
-//        agents.setDescribeAgent(new DescribeAgent(model));
+        agents.setSetupQuestAgent(new SetupQuestAgent(model));
 
 
         Adventure adventure = new AdventureReader().read(GameEngineTest.class.getResourceAsStream(RESOURCE));

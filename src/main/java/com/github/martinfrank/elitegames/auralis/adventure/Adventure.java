@@ -15,9 +15,12 @@ public record Adventure(
         String createdAt,
         String updatedAt
 ) {
-    public Location getLocation(String s) {
-        return content.locations().stream()
-                .filter(l -> l.id().equals(s))
-                .findAny().orElseThrow();
+
+    public Location getLocation(String currentLocationId) {
+        return content.locations().stream().filter(l -> l.id().equals(currentLocationId)).findAny().orElseThrow();
+    }
+
+    public Quest getQuest(String adventureId) {
+        return content.questbook().quests().stream().filter(q -> q.id().equals(adventureId)).findAny().orElseThrow();
     }
 }

@@ -25,7 +25,13 @@
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q -Dtest=AdventureReaderTest test 2>&1 | Select-Object -Last 80)",
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q -Dtest=AdventureReaderTest test 2>&1 | Select-Object -Last 40)",
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -Dtest=AdventureReaderTest test 2>&1 | Select-String -Pattern 'BUILD|Tests run|ERROR|FAIL' | Select-Object -Last 15)",
-      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=!HeroldAgentTest' test 2>&1 | Select-String -Pattern 'BUILD|Tests run:|ERROR|FAIL' | Select-Object -Last 20)"
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=!HeroldAgentTest' test 2>&1 | Select-String -Pattern 'BUILD|Tests run:|ERROR|FAIL' | Select-Object -Last 20)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q compile 2>&1 | Select-String -Pattern 'BUILD|ERROR' | Select-Object -Last 10)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'BUILD|Tests run:|ERROR|FAIL' | Select-Object -Last 10)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'expected|FAILED|but was|AssertionFailedError|Tests run:' | Select-Object -Last 15)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'BUILD|Tests run:|ERROR|FAIL' | Select-Object -Last 8)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=AdventureReaderTest' test 2>&1 | Select-String -Pattern 'expected|but was|FAILED|Tests run:' | Select-Object -Last 8)",
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn -q compile 2>&1 | Select-String -Pattern 'BUILD|ERROR' | Select-Object -Last 5)"
     ]
   }
 }

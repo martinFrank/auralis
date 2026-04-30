@@ -11,6 +11,8 @@ public record Quest(
         String generalInfo,
         String specialInfo,
         String masterInfo,
+        String startLocationId,
+        String startTime,
         Condition startCondition,
         Condition completionCondition,
         List<QuestTask> tasks,

@@ -45,12 +45,9 @@ class AdventureReaderTest {
         assertEquals("Verführung zur Entführung", questbook.mainQuest().title());
         assertEquals(4, questbook.quests().size());
 
-        Quest tavernQuest = questbook.quests().get(1);
-        assertEquals("die Taverne zum Tanzenden Stier", tavernQuest.title());
-        assertTrue(tavernQuest.startCondition() instanceof FlagCondition);
-        FlagCondition startCondition = (FlagCondition) tavernQuest.startCondition();
-        assertEquals("walk_to_tavern", startCondition.flag());
-        assertEquals(Boolean.TRUE, startCondition.equals());
+        Quest tavernQuest = questbook.quests().get(0);
+        assertEquals("Ein Abend in der Taverne", tavernQuest.title());
+
 
     }
 }

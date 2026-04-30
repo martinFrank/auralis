@@ -98,6 +98,8 @@
         "generalInfo": { "type": "string" },
         "specialInfo": { "type": "string" },
         "masterInfo": { "type": "string" },
+        "startLocationId": { "type": "string", "description": "Optionale Start-Location der Quest. Referenziert content.locations[].id." },
+        "startTime": { "type": "string", "description": "Freitext-Startzeit (z. B. 'nachmittags')." },
         "startCondition": { "$ref": "#/$defs/Condition" },
         "completionCondition": { "$ref": "#/$defs/Condition" },
         "tasks": { "type": "array", "items": { "$ref": "#/$defs/QuestTask" } },

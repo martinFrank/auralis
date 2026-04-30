@@ -13,7 +13,7 @@ public class GameChat {
 
     public enum Source { PLAYER, HEROLD, ADVENTURE }
 
-    public record Turn(String nodeId, Source source, String content) {}
+    public record Turn(Source source, String explanation, String content) {}
 
     private final List<Turn> history = new ArrayList<>();
 
@@ -21,21 +21,17 @@ public class GameChat {
         return Collections.unmodifiableList(history);
     }
 
-    public void addPlayerMessage(String nodeId, String playerInput) {
-        add(nodeId, Source.PLAYER, playerInput);
+    public void addPlayerMessage(String playerInput) {
+        add(Source.PLAYER, "", playerInput);
     }
 
-    public void addHeroldMessage(String nodeId, String message) {
-        add(nodeId, Source.HEROLD, message);
+    public void addHeroldMessage(String explanation, String message) {
+        add(Source.HEROLD, explanation, message);
     }
 
-    public void addAdventureMessage(String nodeId, String message) {
-        add(nodeId, Source.ADVENTURE, message);
-    }
-
-    private void add(String nodeId, Source source, String content) {
-        Turn turn = new Turn(nodeId, source, content);
-        LOG.info("[{}] {}", source, content);
+    private void add(Source source, String msgInfo, String content) {
+        Turn turn = new Turn(source, msgInfo, content);
+        LOG.info("[{}] [{}] {}", source, msgInfo, content);
         history.add(turn);
     }
 }
