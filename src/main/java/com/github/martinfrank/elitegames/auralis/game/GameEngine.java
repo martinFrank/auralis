@@ -18,7 +18,7 @@ public class GameEngine {
 
     public void start() {
         Quest current = gameSession.getCurrentQuest();
-        switchToQuest
+
     }
 
     private void createIntro() {
