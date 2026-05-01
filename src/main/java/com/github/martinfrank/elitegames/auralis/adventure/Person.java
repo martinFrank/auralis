@@ -11,5 +11,6 @@ public record Person(
         String generalInfo,
         String specialInfo,
         String masterInfo,
+        String revealed,
         Map<String, Object> properties
 ) {}

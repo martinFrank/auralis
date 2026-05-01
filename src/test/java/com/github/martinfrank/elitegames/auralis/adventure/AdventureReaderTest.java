@@ -27,14 +27,14 @@ class AdventureReaderTest {
 
         Content content = adventure.content();
         assertNotNull(content);
-        assertEquals(4, content.locations().size());
-        assertEquals(5, content.persons().size());
+        assertEquals(6, content.locations().size());
+        assertEquals(7, content.persons().size());
         assertEquals(7, content.flags().size());
 
         Location start = content.locations().getFirst();
         assertEquals("start", start.id());
         assertEquals("Zentraler Platz im Handelsviertel", start.title());
-        assertEquals(3, start.transitions().size());
+        assertEquals(4, start.transitions().size());
 
         Location walfisch = content.locations().get(3);
         assertEquals("Taverne Weisser Walfisch", walfisch.title());

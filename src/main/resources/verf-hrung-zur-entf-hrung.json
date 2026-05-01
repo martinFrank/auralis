@@ -1,5 +1,5 @@
 {
-  "id": "9427db1d-f73b-4296-9a5a-b22aa8062b77",
+  "id": "f758eab3-d9a5-4e55-8414-dd4fadb9cb24",
   "title": "Verführung zur Entführung",
   "slug": null,
   "version": 1,
@@ -15,6 +15,7 @@
         "generalInfo": "Der Marktplatz liegt inmitten der Kaiserstadt und ist der Herzpunkt aller Aktivitäten. Er wird von einem großen, prächtigen Brunnen dominiert, der mit Figuren aus Bronze geschmückt ist. Die Wasserstrahlen des Brunnens springen aufwärts in einem bunten Spiel aus Licht und Wasser, beleuchtet durch das sanfte Licht, das von den umliegenden Gebäuden reflektiert wird. Um den Marktplatz herum stehen prachtvolle Gebäude, in denen sich luxuriöse Geschäfte, Gasthöfe und sogar das königliche Amt befinden\n\nDer Platz ist ein Treffpunkt für alle Schichten der Gesellschaft. An den Ständen des Marktes bietet man alles vom frischesten Obst und Gemüse bis hin zu hochwertigen Edelsteinen an. Die Atmosphäre ist lebendig, mit dem Läuten von Glöckchen bei jedem neuen Kauf, den Gesang der Händlerinnen beim Verkauf ihrer Waren und das Gelächter des Volksgeschehens.",
         "specialInfo": "",
         "masterInfo": "",
+        "revealed": null,
         "onEnter": [],
         "onExit": [],
         "transitions": [
@@ -38,6 +39,9 @@
             "condition": null,
             "check": null,
             "effects": null
+          },
+          {
+            "to": "a7bb62d3-eb69-4c66-884e-387c9302e7d1"
           }
         ],
         "persons": [],
@@ -46,9 +50,10 @@
       {
         "id": "e5815fa0-1885-46a1-b477-ea5ddcee04e2",
         "title": "Taverne zum tanzenden Stier",
-        "generalInfo": "Als Ihr die Tür zu der Taverne öffnen wollt kommt mit dieser gleich der erste betrunkenen Gast mit aus der brechend vollen Taverne heraus gepurzelt. Er flucht ein paar unverständliche Worte, faßt sich nachdem er sich hochgerappelt hat an den breiten Schädel und wankt von dannen nicht ohne vorher noch ein paarmal an die Hauswand angetitscht zu sein. Die Taverne scheint kaum noch Platz für euch frei zu haben. Da die Stimmung die nach außen dringt aber wirklich fröhlich ist wollt Ihr auch rein zu den Garether Trunkenbolden. ",
-        "specialInfo": "Diese Taverne ist sehr beliebt in Gareth. In der Taverne gibt es eine gute Auswahl an Getränken und Essen. die Stimmung ist fröhlich und es spielt eine Band im Hintergrund. Romosch, Sohn des Gramlon betreibt dieses Taverne ",
+        "generalInfo": "",
+        "specialInfo": "",
         "masterInfo": "",
+        "revealed": null,
         "onEnter": [],
         "onExit": [],
         "transitions": [
@@ -60,11 +65,7 @@
             "effects": null
           }
         ],
-        "persons": [
-          {
-            "personId": "a78d8f06-9988-4d2e-8b7f-60ff3fccf312"
-          }
-        ],
+        "persons": [],
         "items": []
       },
       {
@@ -73,6 +74,7 @@
         "generalInfo": "Die Eiserne Jungfrau befindet sich in einem kleinen, aber gut gepflegten Gebäude mit schwarzem Fachwerk und einem steilen Dach aus roten Ziegeln. Über der Tür prangt ein wunderschönes Schild mit dem Bild einer Jungfrau, die einen Schwert schmiedet. Die Fenster sind mit Eisenbarren gesichert und die Tür selbst ist stark und gut verriegelt.\n\nAls du in den Laden gehst, bemerkst du sofort die Vielfalt an Waffen und Rüstungen, die von den Wänden bis zum Boden reichen. Es riecht nach Schmiedehitze, Öl und Metall. Du wirst von Angrella selbst begrüßt, einer erfahrenen und ehrbaren Schmiedin mit einem warmen Lächeln.\n\nDer Laden bietet eine breite Palette an Waffen und Rüstungen ",
         "specialInfo": "Die Preise sind deutlich höher als in den Provinzen, aber die Qualität ist durchwegs gut!",
         "masterInfo": "",
+        "revealed": null,
         "onEnter": [],
         "onExit": [],
         "transitions": [
@@ -98,6 +100,7 @@
         "generalInfo": "Die Taverne ist ein alter Steinbau mit einem spitzen Dach und einer großen Eingangstür, über der das Wappen eines weissen Wals in schwarzem Holz prangt. Drinnen herrscht eine gemütliche Atmosphäre: die Mauern sind mit Fellen tapeziert, die Tische sind von Lampen beleuchtet und die Luft ist dick von dem Duft von Bratfleisch und Bier. Der Wirt selbst, ein gutmütiger Mann namens Gundolf, bedient seine Gäste gerne mit einem Lächeln und einer Geschichte, sobald er Zeit dazu findet.",
         "specialInfo": "An der Theke sitzt Bjoern Skaldottir, er weiss wer der gesuchte Vater ist.\nDer Wirt weiss auch, wer der verzweifelte Vater ist.",
         "masterInfo": "",
+        "revealed": "escape_the_brawl",
         "onEnter": [],
         "onExit": [],
         "transitions": [
@@ -120,6 +123,42 @@
           }
         ],
         "items": []
+      },
+      {
+        "id": "a7bb62d3-eb69-4c66-884e-387c9302e7d1",
+        "title": "Astrids Apotheke",
+        "generalInfo": "Die Apotheke ruht in einem abgetrennten Bereich des Zentralen Handelsplatz. Ein einfacher, aber schützender Holzverschlag umgibt das Fachwerkgebäude. Auf einem kleinen Tisch draußen steht eine vergilbte Holzplatte mit den Zeichnungen von Zaubersprüchen und Medizinrezepten\n\nDrinnen erwartet man einen verschwiegenen Raum, gefüllt mit unterschiedlichen Kräutern in Körben und Töpfen. Ein kleiner Feuerring an einer Wand sorgt für die notwendige Wärme zur Trocknung und Zubereitung der Zutaten. Eine Reihe von Büchern steht in einem Regal, darunter auch das berühmte Buch des Lebens mit zahlreichen Rezepten und magischen Formeln. An einer Wand hängt eine Holztafel mit dem Symbol der Mondaubengel, die Schutz für die Apotheke gewähren soll.",
+        "specialInfo": "Hier regiert eine junge, kluge Heilerin Astrid Gelfern die Einrichtung mit einer Mischung aus altem Wissen und neuer Forschung. Die Regale sind vollgestopft mit seltenen Kräutern und getrockneten Pflanzen, von denen Astrid gezielt mixt, um Salben, Tinkturen und Tränke zu bereiten. Sie ist nicht nur ein geschickter Heiler, sondern auch eine vertrauenswürdige Beraterin für ihre Mitbürger, die mit ihr über ihre Sorgen und Krankheiten sprechen.",
+        "masterInfo": "",
+        "onEnter": [],
+        "onExit": [],
+        "transitions": [
+          {
+            "to": "start"
+          }
+        ],
+        "persons": [
+          {
+            "personId": "f8434710-158e-4c20-aef5-da4466acd029"
+          }
+        ],
+        "items": []
+      },
+      {
+        "id": "273e8467-f562-4032-ae87-f7b3b9f24c46",
+        "title": "Wiesenagers Arsenal",
+        "generalInfo": "Im etwas heruntergekommenen Gemischtwarenladen schwingt der alte Holztisch quietschend zur Seite, als du eintrittst. Der Geruch von Gewürzen und Kräutern mischt sich mit dem Fett alter Fischeingeweide, die an den Wänden hängen wie gefährliche Schattierungen. Eine dünne Rauchfahne weicht vor deinem Atem auf, als du dich nähers, um einen Blick auf die seltsamen Objekte zu werfen, die hier verkauft werden.",
+        "specialInfo": "Peter Wiesenanger führt sein Geschäft mit großer Geduld und Geschicklichkeit. Er kennt jeden Kunden der Stadt und erinnert sich an ihre Vorlieben und Bedürfnisse. Die Kunden halten ihn für einen Mann, den man vertrauen kann, was ihm seine Stellung als Verkäufer in der Mitte der Gemeinschaft sichert. Während er mit jedem Kunde ein Gespräch führt, wacht er gleichzeitig darauf, dass der Laden nicht überlaufen bleibt und alles in bester Ordnung ist. \n\nAuch wenn der Laden heruntergekommen aussieht finden die Helden hier eine sehr gute Auswahl.",
+        "masterInfo": "",
+        "onEnter": [],
+        "onExit": [],
+        "transitions": [],
+        "persons": [
+          {
+            "personId": "d2c60571-bcab-42ac-8393-6562da4e30ab"
+          }
+        ],
+        "items": []
       }
     ],
     "persons": [
@@ -129,6 +168,7 @@
         "generalInfo": "Angrella, die ehrgeizige und fachkundige Schmiedin, sie führt die Schmiede zur eisenen Jungfrau. Mit ihren mächtigen Armen und ihrer unermüdlichen Arbeitsweise ist sie bekannt für ihre Meisterstücke: scharfe Klingen, stabile Speere und glühende Öfen. Ihre Leidenschaft für das Feuer und die Metallarbeit hat sie zu einer der respektiertesten Handwerkerinnen der Kaiserstadt Gareth gemacht.",
         "specialInfo": "",
         "masterInfo": "",
+        "revealed": null,
         "properties": null
       },
       {
@@ -137,6 +177,7 @@
         "generalInfo": "Romosch, Sohn des Gramlon, ein Zwerg den es nach drei erfolglosen Brautwerbung ins menschliche Singledasein verschlagen hat.",
         "specialInfo": "Er kennt den neuesten Klatsch und Tratsch wobei seine grössten Interessen dem Schmiedehandwerk gelten. Und Angrella die Schmiedin im Norden der Stadt soll einen Zweihänder erschaffen haben, diese langen Schwerter mit denen nur die Riesen umgehen können.",
         "masterInfo": "",
+        "revealed": null,
         "properties": null
       },
       {
@@ -145,6 +186,7 @@
         "generalInfo": "Bjoern Skaldottir, Thorwaler, Gast im weissen Walfisch, weiss, dass der verzweifelte Vater Arberd Vronfelden ist und einen Laden in GarethHandelsplatz hat.",
         "specialInfo": "Er besucht seine Schwester, Haggard Skaldottir, die demnächst heiraten will.",
         "masterInfo": "",
+        "revealed": "escape_the_brawl",
         "properties": null
       },
       {
@@ -153,6 +195,7 @@
         "generalInfo": "Gundolf Attermen, Wirt des weissen Walfisch, weiss, dass der verzweifelte Vater Arberd Vronfelden ist und einen Laden in GarethHandelsplatz hat.",
         "specialInfo": "er verkauft einen vorzüglichen Wein",
         "masterInfo": "",
+        "revealed": "escape_the_brawl",
         "properties": null
       },
       {
@@ -161,7 +204,22 @@
         "generalInfo": "",
         "specialInfo": "",
         "masterInfo": "",
+        "revealed": "found_arberds_address",
         "properties": null
+      },
+      {
+        "id": "f8434710-158e-4c20-aef5-da4466acd029",
+        "name": "Astrid Gelfern",
+        "generalInfo": "Astrid Gelfern ist eine würdige und geheimnisvolle Gestalt mit silbergrauen Locken, die in einem ordentlichen Zopf geflochten sind. Ihre blauen Augen funkeln von einem weisen Intellekt, während sie einen prächtigen, schlichten Umhang aus roter Seide trägt, der mit goldenen Fasern verziert ist. Ein kleines Arznei-Schatulchen hängt an ihrer Hüfte, und ihr Gesicht strahlt eine Mischung aus Ehrfurcht gebietender Autorität und weiblicher Sanftmut aus.",
+        "specialInfo": "Astrid Gelfern ein wissensbegieriger Mensch. Sie kennt ihre vielen Büchern, die an der Wand aufgereiht sind, von Medizin und Rezepturen bis hin zu Alchemieforschungen praktisch auswendig. Ihre Fingerspitzen glätten sich mit Kräutern, und sie hat eine tiefe Kenntnis des menschlichen Körpers und seiner Krankheiten. Astrid ist nicht nur ein Meister der Heilung, sondern auch eine treue Freundin, die immer bereit ist, Rat oder Unterstützung zu geben, ohne dabei ihre Geheimnisse preiszugeben.",
+        "masterInfo": ""
+      },
+      {
+        "id": "d2c60571-bcab-42ac-8393-6562da4e30ab",
+        "name": "Peter Wiesenanger",
+        "generalInfo": " mittelgroßer Mann mit braunen Lockenhaaren, die in einem Knoten am Hinterkopf zusammengebunden sind. Sein Gesicht ist gebräunt von den vielen Jahren unter dem offenen Himmel, und seine Augen leuchten mit Erfahrung und Weisheit. Er trägt immer eine prächtige Kutte aus dickem Leinen, an der Edelsteine und kleine Metallplättchen in Form von Waren eingesetzt sind, die ihm als Markenzeichen dienen.",
+        "specialInfo": "Peter Wiesenanger ist ein tief gehender Geschäftsmann, dessen Herz jedoch mit Mitgefühl füllt. Sein Gemischtwarengeschäft versteckt ein Geheimnis hinter den prächtigen Holztäfeln und der warmen Glut des Feuers: hier sind Waren aus allen Ecken der Welt zu finden – von feinem Wein bis hin zu exotischen Gewürzen, und sogar seltenen Kräuterflözen. Peter ist ein verlässlicher Freund für die Armen und ein treuer Verbündeter für seine Geschäftspartner, und jedes Mal, wenn er einen Vertrag abschließt, strahlt sein Herz mit unendlicher Freude und Hoffnung. Diese Seite von ihm versteckt er aber gut im Alltagsgeschäft",
+        "masterInfo": ""
       }
     ],
     "items": [],
@@ -215,7 +273,7 @@
           "specialInfo": "Das Abenteuer beginnt Nachmittags und falls die Helden vorher noch Einkäufe tätigen oder andere Erledigungen machen wollen, ist noch genug Zeit sich in der Kaiserstadt Gareth umzusehen.\n\nWenn die Helden die Bewohner der Stadt fragen, welche Taverne die beste ist, wird ihnen die Taverne zum tanzenden Stier genannt",
           "masterInfo": "",
           "startLocationId": "start",
-          "startTime": "nachmittag",
+          "startTime": null,
           "startCondition": null,
           "completionCondition": {
             "flag": "walk_to_tavern",
@@ -232,7 +290,7 @@
         {
           "id": "5ce0f5a5-a9d4-467a-bfc8-85019aab6aff",
           "title": "die Taverne zum Tanzenden Stier",
-          "generalInfo": "Die Helden sollen es sich in der Taverne gemütlich machen und den Abend geniessen. ",
+          "generalInfo": "Als Ihr die Tür zu der Taverne öffnen wollt kommt mit dieser gleich der erste betrunkenen Gast mit aus der brechend vollen Taverne heraus gepurzelt. Er flucht ein paar unverständliche Worte, faßt sich nachdem er sich hochgerappelt hat an den breiten Schädel und wankt von dannen nicht ohne vorher noch ein paarmal an die Hauswand angetitscht zu sein. Die Taverne scheint kaum noch Platz für euch frei zu haben. Da die Stimmung die nach außen dringt aber wirklich fröhlich ist wollt Ihr auch rein zu den Garether Trunkenbolden. ",
           "specialInfo": "Sollten sich die Helden zu der Theke durchkämpfen können so kommt es zu einem Gespräch mit dem Wirt Romosch Sohn des Gramlon ein Zwerg den es nach drei Erfolglosen Brautwerbung ins menschliche Singledasein verschlagen hat. Das erzählt er so jedem der ihn nicht danach fragt.  Andere Gesprächspartner wird es wohl kaum geben, denn in den Adern der bunt gemischten Gäste fließt nunmehr schon mehr Alkohol als Blut ",
           "masterInfo": "",
           "startLocationId": "e5815fa0-1885-46a1-b477-ea5ddcee04e2",
@@ -268,7 +326,7 @@
           "specialInfo": "Erwartungsgemäss sollten sich die Helden nun bemühen dem Mann hinterher zu kommen, was aber umso schwieriger ist als man es sich vorstellt. Denn sobald die Helden an den vielen betrunkenen Körper vorbeiwollen wird es automatisch zu ein wenig Rempelei kommen. Und das bedeutet nur eins in einer Kneipe voller Trunkenbolde Ein zünftige Schlägerei bricht aus.",
           "masterInfo": "Diesen Kampf sollten die Helden genau wie die anderen führen Mit den Fäusten und schlimmstenfalls mit einem zerbrochenen Stuhlbein. Magiebegabte sollten sich mit so lieben Sachen wie dem BANBALADIN begnügen. Übrigens gibt es in diesem Kampf keine festen Gegner. Nachdem der ganze Raum in Fahrt ist, schlagen die Jungs auch gerne gegenseitig auf sich ein. Der einzige der das gar nicht gut findet ist der Wirt. Er wird sich bestimmt eine neue Einrichtung zulegen müssen. Sollten die Helden zu stark zu den Waffen greifen, dann kann der Kampf gerne von den auftauchenden Stadtwachen unterbunden werden. In diesem Fall sind sich alle anwesenden Einig, nämlich dass die Helden den Streit angefangen haben Im Normalfall (nicht ohne Folgen) sollten man den Helden aber folgenden Gelegenheit zur Flucht lassen",
           "startLocationId": "e5815fa0-1885-46a1-b477-ea5ddcee04e2",
-          "startTime": "später abend",
+          "startTime": null,
           "startCondition": {
             "flag": "await_arberds_intro",
             "equals": true
@@ -299,8 +357,8 @@
           "generalInfo": "Mittlerweile scheint es als gälte nun die Regel \"Jeder gegen Jeden\" und so kloppen sich die meisten Tavernengäste untereinander und keiner interessiert sich mehr für euch. Ihr schmuggelt euch also langsam Richtung Tür um an der frischen Luft wieder etwas klaren Kopf zu bekommen.\n\nAls die Helden gerade um die nächste Ecke biegen hören Sie wie die Garether Stadtwachen die Taverne stürmen und mitmachen.",
           "specialInfo": "",
           "masterInfo": "Das vordringliche Ziel der Helden wird jetzt sein den alten Mann wiederzufinden von dem Sie wohl nur eins Wissen. Seine Tochter Irva ist entführt. Tatsächlich scheint der Händler in so gut wie jeder Garether Taverne gewesen zu sein, denn schon bei der nächsten Taverne (weisser Walfisch) kann ein anderer Gast (Bjoern Skaldottir, Thorwaler) oder der Wirt Gundolf Attermen berichten um wen es sich handelt und wo sie suchen müssen. \n\nNachdem sie die Information erhalten haben sollten sie dort auch übernachten, damit sie am nächsten Tag Arberd Vronfelden besuchen können.",
-          "startLocationId": "start",
-          "startTime": "nachts",
+          "startLocationId": "e5815fa0-1885-46a1-b477-ea5ddcee04e2",
+          "startTime": null,
           "startCondition": {
             "flag": "escape_the_brawl",
             "equals": true

@@ -103,7 +103,10 @@ public class GameEngine {
                                 List<Person> persons, List<GameChat.Turn> history, String playerInput) {
         QuestionResponseAgent.Context ctx = new QuestionResponseAgent.Context(
                 location, quest, persons, gameSession.getCurrentTime(),
-                gameSession.getFlags(), history, c.hints(), playerInput);
+                gameSession.getRevealedLocations(),
+                gameSession.getRevealedPersons(),
+                gameSession.getRevealedItems(),
+                history, c.hints(), playerInput);
         String reply = agents.getQuestionResponseAgent().respond(ctx);
         gameSession.getChat().addHeroldMessage("[QUESTION] " + c.reasoning(), reply);
     }

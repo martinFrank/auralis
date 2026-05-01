@@ -77,7 +77,8 @@ class ClassifyInputAgentTest {
                 List.of(),
                 conversation,
 //                "Ich frage einen Händler, ob es hier eine gute Taverne gibt."
-                "Gibt es hier einen Waffenladen?."
+//                "Gibt es hier einen Waffenladen?."
+                "beschreibe mir den Marktplatz"
         );
 
         ChatLanguageModel model = chatModel();

@@ -4,12 +4,16 @@ import com.github.martinfrank.elitegames.auralis.adventure.Adventure;
 import com.github.martinfrank.elitegames.auralis.adventure.Condition;
 import com.github.martinfrank.elitegames.auralis.adventure.Flag;
 import com.github.martinfrank.elitegames.auralis.adventure.FlagCondition;
+import com.github.martinfrank.elitegames.auralis.adventure.Item;
+import com.github.martinfrank.elitegames.auralis.adventure.Location;
+import com.github.martinfrank.elitegames.auralis.adventure.Person;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
 import com.github.martinfrank.elitegames.auralis.adventure.Questbook;
 import com.github.martinfrank.elitegames.auralis.character.Party;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -94,5 +98,27 @@ public class GameSession {
 
     public String getCurrentLocationId() {
         return party.getLocationId();
+    }
+
+    public List<Location> getRevealedLocations() {
+        List<Location> all = adventure.content().locations();
+        if (all == null) return List.of();
+        return all.stream().filter(l -> isRevealed(l.revealed())).toList();
+    }
+
+    public List<Person> getRevealedPersons() {
+        List<Person> all = adventure.content().persons();
+        if (all == null) return List.of();
+        return all.stream().filter(p -> isRevealed(p.revealed())).toList();
+    }
+
+    public List<Item> getRevealedItems() {
+        List<Item> all = adventure.content().items();
+        if (all == null) return List.of();
+        return all.stream().filter(i -> isRevealed(i.revealed())).toList();
+    }
+
+    private boolean isRevealed(String flagId) {
+        return flagId == null || isFlagSet(flagId);
     }
 }

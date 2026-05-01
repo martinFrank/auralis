@@ -11,6 +11,7 @@ public record Location(
         String generalInfo,
         String specialInfo,
         String masterInfo,
+        String revealed,
         List<Effect> onEnter,
         List<Effect> onExit,
         List<Transition> transitions,

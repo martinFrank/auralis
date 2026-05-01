@@ -7,7 +7,10 @@ import com.github.martinfrank.elitegames.auralis.adventure.Person;
 import com.github.martinfrank.elitegames.auralis.adventure.PersonPresence;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
 import com.github.martinfrank.elitegames.auralis.agent.chat.QuestionResponseAgent.Context;
+import com.github.martinfrank.elitegames.auralis.character.Adventurer;
+import com.github.martinfrank.elitegames.auralis.character.Party;
 import com.github.martinfrank.elitegames.auralis.game.GameChat;
+import com.github.martinfrank.elitegames.auralis.game.GameSession;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import org.junit.jupiter.api.Test;
@@ -16,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
 
 class QuestionResponseAgentTest {
 
@@ -35,6 +37,8 @@ class QuestionResponseAgentTest {
         Quest quest = adventure.getQuest("7a91e163-860f-4db0-b231-08d76123afdb");
         Location location = adventure.getLocation(quest.startLocationId());
 
+        GameSession session = new GameSession(adventure, new Party(List.of(new Adventurer("Rolf"))));
+
         //aktueller chatverlauf bisher
         List<GameChat.Turn> conversation = List.of(
                 new GameChat.Turn(GameChat.Source.HEROLD, "statischer Introtext",
@@ -48,7 +52,7 @@ class QuestionResponseAgentTest {
                                 Brunnen, dessen Wasserstrahlen in der sanften Abendsonne funkeln und das Licht spiegeln. Um
                                 euch herum drängt sich die Menge – Händler, Handwerker, Adlige – alle bereit für den
                                 abendlichen Ausflug.
-                                
+
                                 Fragt umher, und ihr werdet hören, dass man von der Taverne zum tanzenden Stier spricht, die
                                 das beste Gasthaus der Stadt ist. Es liegt direkt hier in der Nähe, und es ist noch früh
                                 genug, um vor dem Eintritt des Abendlichts ein wenig umherzuschnüffeln oder vielleicht
@@ -63,7 +67,7 @@ class QuestionResponseAgentTest {
                                 aus Licht und Wasser, beleuchtet durch das sanfte Licht, das von den umliegenden
                                 Gebäuden reflektiert wird. Um den Marktplatz herum stehen prachtvolle Gebäude, in denen
                                 sich luxuriöse Geschäfte, Gasthöfe und sogar das königliche Amt befinden
-                                
+
                                 Der Platz ist ein Treffpunkt für alle Schichten der Gesellschaft. An den Ständen des
                                 Marktes bietet man alles vom frischesten Obst und Gemüse bis hin zu hochwertigen
                                 Edelsteinen an. Die Atmosphäre ist lebendig, mit dem Läuten von Glöckchen bei jedem
@@ -98,15 +102,9 @@ class QuestionResponseAgentTest {
                 quest,
                 List.of(), //leider keine personen anwesend
                 "nachmittags",
-                Map.of(
-                        "walk_to_tavern", true,
-                        "await_arberds_intro", true,
-                        "escape_the_brawl", true,
-                        "found_arberds_address", false,
-                        "ready_to_visit_arberds", false,
-                        "party_bonus", false,
-                        "brawling_bonus", false
-                ),
+                session.getRevealedLocations(),
+                session.getRevealedPersons(),
+                session.getRevealedItems(),
                 conversation,
                 "Stelle dem Spieler eine Antwort als Händler in der Marktgasse zur Verfügung und teile ihm Informationen über die Taverne zum tanzenden Stier.",
                 "Ich frage einen Händler, ob es hier eine gute Taverne gibt."
@@ -133,6 +131,7 @@ class QuestionResponseAgentTest {
 
         Quest quest = adventure.getQuest("7a91e163-860f-4db0-b231-08d76123afdb");
         Location location = adventure.getLocation(quest.startLocationId());
+        GameSession session = new GameSession(adventure, new Party(List.of(new Adventurer("Rolf"))));
 
         //aktueller chatverlauf bisher
         List<GameChat.Turn> conversation = List.of(
@@ -147,7 +146,7 @@ class QuestionResponseAgentTest {
                                 Brunnen, dessen Wasserstrahlen in der sanften Abendsonne funkeln und das Licht spiegeln. Um
                                 euch herum drängt sich die Menge – Händler, Handwerker, Adlige – alle bereit für den
                                 abendlichen Ausflug.
-                                
+
                                 Fragt umher, und ihr werdet hören, dass man von der Taverne zum tanzenden Stier spricht, die
                                 das beste Gasthaus der Stadt ist. Es liegt direkt hier in der Nähe, und es ist noch früh
                                 genug, um vor dem Eintritt des Abendlichts ein wenig umherzuschnüffeln oder vielleicht
@@ -162,7 +161,7 @@ class QuestionResponseAgentTest {
                                 aus Licht und Wasser, beleuchtet durch das sanfte Licht, das von den umliegenden
                                 Gebäuden reflektiert wird. Um den Marktplatz herum stehen prachtvolle Gebäude, in denen
                                 sich luxuriöse Geschäfte, Gasthöfe und sogar das königliche Amt befinden
-                                
+
                                 Der Platz ist ein Treffpunkt für alle Schichten der Gesellschaft. An den Ständen des
                                 Marktes bietet man alles vom frischesten Obst und Gemüse bis hin zu hochwertigen
                                 Edelsteinen an. Die Atmosphäre ist lebendig, mit dem Läuten von Glöckchen bei jedem
@@ -197,15 +196,9 @@ class QuestionResponseAgentTest {
                 quest,
                 List.of(), //leider keine personen anwesend
                 "nachmittags",
-                Map.of(
-                        "walk_to_tavern", true,
-                        "await_arberds_intro", true,
-                        "escape_the_brawl", true,
-                        "found_arberds_address", false,
-                        "ready_to_visit_arberds", false,
-                        "party_bonus", false,
-                        "brawling_bonus", false
-                ),
+                session.getRevealedLocations(),
+                session.getRevealedPersons(),
+                session.getRevealedItems(),
                 conversation,
                 "Antworte mit einer Bestätigung oder Ablehnung und informiere denSpieler, ob es in der Stadt einen solchen Laden gibt.",
                 "Gibt es hier einen Waffenladen?."
@@ -244,15 +237,9 @@ class QuestionResponseAgentTest {
                 quest,
                 present,
                 "spaet abends",
-                Map.of(
-                        "walk_to_tavern", true,
-                        "await_arberds_intro", true,
-                        "escape_the_brawl", true,
-                        "found_arberds_address", false,
-                        "ready_to_visit_arberds", false,
-                        "party_bonus", false,
-                        "brawling_bonus", false
-                ),
+                List.of(location),
+                present,
+                List.of(),
                 List.of(),
                 "Antworte als Spielleiter, beschreibe den Wirt anhand seiner allgemeinen Informationen.",
                 "Was kannst du mir ueber den Wirt erzaehlen?"

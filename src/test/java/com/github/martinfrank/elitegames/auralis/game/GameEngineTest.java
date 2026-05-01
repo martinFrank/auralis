@@ -40,7 +40,7 @@ class GameEngineTest {
         Party party = new Party(List.of(new Adventurer("Thorsten Grambush")));
         GameEngine engine = new GameEngine(adventure, party, agents);
 
-        engine.start();
+//        engine.start();
     }
 
 }

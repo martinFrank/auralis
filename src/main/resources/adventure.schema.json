@@ -44,6 +44,7 @@
         "generalInfo": { "type": "string" },
         "specialInfo": { "type": "string" },
         "masterInfo": { "type": "string" },
+        "revealed": { "type": "string", "description": "Optional. Referenziert Flag.id — der Eintrag gilt erst als sichtbar/erkundet, wenn das Flag wahr ist." },
         "properties": { "type": "object", "additionalProperties": true }
       }
     },
@@ -57,6 +58,7 @@
         "generalInfo": { "type": "string" },
         "specialInfo": { "type": "string" },
         "masterInfo": { "type": "string" },
+        "revealed": { "type": "string", "description": "Optional. Referenziert Flag.id — der Eintrag gilt erst als sichtbar/erkundet, wenn das Flag wahr ist." },
         "properties": { "type": "object", "additionalProperties": true }
       }
     },
@@ -127,6 +129,7 @@
         "generalInfo": { "type": "string" },
         "specialInfo": { "type": "string" },
         "masterInfo": { "type": "string" },
+        "revealed": { "type": "string", "description": "Optional. Referenziert Flag.id — der Eintrag gilt erst als sichtbar/erkundet, wenn das Flag wahr ist." },
         "onEnter": { "type": "array", "items": { "$ref": "#/$defs/Effect" } },
         "onExit": { "type": "array", "items": { "$ref": "#/$defs/Effect" } },
         "transitions": { "type": "array", "items": { "$ref": "#/$defs/Transition" } },

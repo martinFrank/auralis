@@ -44,7 +44,12 @@
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=DialogResponseAgentTest' test 2>&1 | Select-Object -Last 25)",
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=ActionJudgeAgentTest' test 2>&1 | Select-Object -Last 50)",
       "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=ActionResponseAgentTest' test 2>&1 | Select-Object -Last 35)",
-      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=GameEngineLoopTest' test 2>&1 | Select-Object -Last 80)"
+      "PowerShell($mvn = \"C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2026.1\\\\plugins\\\\maven\\\\lib\\\\maven3\\\\bin\\\\mvn.cmd\"; & $mvn '-Dtest=GameEngineLoopTest' test 2>&1 | Select-Object -Last 80)",
+      "Bash(awk '/\"items\":/,0' /c/Users/m.frank/IdeaProjects/privat/auralis/src/test/resources/verf-hrung-zur-entf-hrung.json)",
+      "PowerShell(& \"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\bin\\\\mvn.cmd\" -q -DskipTests compile 2>&1 | Select-Object -Last 60)",
+      "PowerShell(& \"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" -DskipTests compile 2>&1 | Select-Object -Last 80)",
+      "PowerShell(& \"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" -DskipTests compile 2>&1 | Select-Object -Last 15)",
+      "PowerShell(& \"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" -DskipTests compile test-compile 2>&1 | Select-Object -Last 25)"
     ]
   }
 }

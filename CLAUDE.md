@@ -27,3 +27,4 @@ java -cp target/classes com.github.martinfrank.elitegames.auralis.App   # Run Ap
 
 - `pom.xml` uses `junit-jupiter` 5.11.4 with `maven.compiler.release=21`. No explicit `maven-surefire-plugin` — relies on a modern Maven (3.9+) bringing in a surefire version that discovers JUnit 5 out of the box. Pin surefire explicitly if builds on older Maven start skipping tests.
 - Package layout is `com.github.martinfrank.elitegames.auralis` even though the artifactId is `herold` — keep new classes under that package to match the groupId convention.
+

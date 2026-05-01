@@ -1,5 +1,6 @@
 package com.github.martinfrank.elitegames.auralis.agent.chat;
 
+import com.github.martinfrank.elitegames.auralis.adventure.Item;
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
@@ -11,7 +12,6 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.output.Response;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class QuestionResponseAgent {
@@ -21,7 +21,9 @@ public class QuestionResponseAgent {
             Quest quest,
             List<Person> presentPersons,
             String currentTime,
-            Map<String, Boolean> flags,
+            List<Location> visibleLocations,
+            List<Person> visiblePersons,
+            List<Item> visibleItems,
             List<GameChat.Turn> recentHistory,
             String hints,
             String playerInput
@@ -110,16 +112,47 @@ public class QuestionResponseAgent {
         }
         sb.append("=== ENDE PERSONEN ===\n\n");
 
-        sb.append("=== SPIEL-FLAGS ===\n");
-        Map<String, Boolean> flags = ctx.flags();
-        if (flags == null || flags.isEmpty()) {
-            sb.append("(keine)\n");
+        sb.append("=== BEKANNTE ORTE ===\n");
+        List<Location> locs = ctx.visibleLocations();
+        if (locs == null || locs.isEmpty()) {
+            sb.append("(noch keine)\n");
         } else {
-            for (Map.Entry<String, Boolean> e : flags.entrySet()) {
-                sb.append("- ").append(e.getKey()).append("=").append(e.getValue()).append("\n");
+            for (Location loc : locs) {
+                sb.append("- ").append(nz(loc.title())).append("\n");
+                sb.append("  GENERAL: ").append(nz(loc.generalInfo())).append("\n");
+                sb.append("  SPECIAL: ").append(nz(loc.specialInfo())).append("\n");
+                sb.append("  MASTER: ").append(nz(loc.masterInfo())).append("\n");
             }
         }
-        sb.append("=== ENDE FLAGS ===\n\n");
+        sb.append("=== ENDE BEKANNTE ORTE ===\n\n");
+
+        sb.append("=== BEKANNTE PERSONEN ===\n");
+        List<Person> knownPersons = ctx.visiblePersons();
+        if (knownPersons == null || knownPersons.isEmpty()) {
+            sb.append("(noch keine)\n");
+        } else {
+            for (Person p : knownPersons) {
+                sb.append("- name: ").append(nz(p.name())).append("\n");
+                sb.append("  GENERAL: ").append(nz(p.generalInfo())).append("\n");
+                sb.append("  SPECIAL: ").append(nz(p.specialInfo())).append("\n");
+                sb.append("  MASTER: ").append(nz(p.masterInfo())).append("\n");
+            }
+        }
+        sb.append("=== ENDE BEKANNTE PERSONEN ===\n\n");
+
+        sb.append("=== BEKANNTE GEGENSTAENDE ===\n");
+        List<Item> knownItems = ctx.visibleItems();
+        if (knownItems == null || knownItems.isEmpty()) {
+            sb.append("(noch keine)\n");
+        } else {
+            for (Item it : knownItems) {
+                sb.append("- name: ").append(nz(it.name())).append("\n");
+                sb.append("  GENERAL: ").append(nz(it.generalInfo())).append("\n");
+                sb.append("  SPECIAL: ").append(nz(it.specialInfo())).append("\n");
+                sb.append("  MASTER: ").append(nz(it.masterInfo())).append("\n");
+            }
+        }
+        sb.append("=== ENDE BEKANNTE GEGENSTAENDE ===\n\n");
 
         sb.append("=== CHATVERLAUF (juengste zuletzt) ===\n");
         List<GameChat.Turn> hist = ctx.recentHistory();
