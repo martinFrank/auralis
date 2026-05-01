@@ -4,7 +4,6 @@ import com.github.martinfrank.elitegames.auralis.adventure.Adventure;
 import com.github.martinfrank.elitegames.auralis.adventure.Flag;
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;
-import com.github.martinfrank.elitegames.auralis.adventure.PersonPresence;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
 import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent;
 import com.github.martinfrank.elitegames.auralis.agent.chat.ActionResponseAgent;
@@ -80,7 +79,7 @@ public class GameEngine {
     private void handleTurn(String playerInput) {
         Quest quest = gameSession.getCurrentQuest();
         Location location = currentLocation();
-        List<Person> persons = presentPersons(location);
+        List<Person> persons = gameSession.getPresentPersons(location);
         List<GameChat.Turn> history = recentHistory();
 
         Classification classification = agents.getClassifyInputAgent().classify(
@@ -114,8 +113,10 @@ public class GameEngine {
     private void handleAmbient(Classification c, Quest quest, Location location,
                                List<Person> persons, List<GameChat.Turn> history, String playerInput) {
         AmbientResponseAgent.Context ctx = new AmbientResponseAgent.Context(
-                location, quest, persons, gameSession.getCurrentTime(),
-                gameSession.getFlags(), history, c.hints(), playerInput);
+                location, quest,
+                quest == null ? List.of() : gameSession.getOpenTasks(quest),
+                persons, gameSession.getCurrentTime(),
+                history, c.hints(), playerInput);
         String reply = agents.getAmbientResponseAgent().respond(ctx);
         gameSession.getChat().addHeroldMessage("[AMBIENT] " + c.reasoning(), reply);
     }
@@ -198,19 +199,6 @@ public class GameEngine {
 
     private Location currentLocation() {
         return gameSession.getAdventure().getLocation(gameSession.getCurrentLocationId());
-    }
-
-    private List<Person> presentPersons(Location location) {
-        if (location.persons() == null || location.persons().isEmpty()) {
-            return List.of();
-        }
-        return location.persons().stream()
-                .map(PersonPresence::personId)
-                .map(id -> gameSession.getAdventure().content().persons().stream()
-                        .filter(p -> p.id().equals(id))
-                        .findAny().orElseThrow(() ->
-                                new IllegalStateException("Person nicht gefunden: " + id)))
-                .toList();
     }
 
     private List<GameChat.Turn> recentHistory() {
