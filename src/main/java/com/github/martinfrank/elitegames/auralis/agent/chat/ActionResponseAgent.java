@@ -1,9 +1,10 @@
-package com.github.martinfrank.elitegames.auralis.agent;
+package com.github.martinfrank.elitegames.auralis.agent.chat;
 
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
-import com.github.martinfrank.elitegames.auralis.adventure.QuestTask;
+import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent.FlagChange;
+import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent.Verdict;
 import com.github.martinfrank.elitegames.auralis.game.GameChat;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.SystemMessage;
@@ -12,17 +13,16 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.output.Response;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-public class AmbientResponseAgent {
+public class ActionResponseAgent {
 
     public record Context(
-            Location location,
+            Verdict verdict,
             Quest quest,
+            Location location,
             List<Person> presentPersons,
             String currentTime,
-            Map<String, Boolean> flags,
             List<GameChat.Turn> recentHistory,
             String hints,
             String playerInput
@@ -30,36 +30,40 @@ public class AmbientResponseAgent {
 
     private static final String SYSTEM_PROMPT = """
             Du bist der Spielleiter (Herold) eines deutschsprachigen Pen-&-Paper-
-            Adventures. Der Spieler hat eine atmosphaerische Handlung beschrieben
-            — kein Plot-Schritt, keine Frage. Deine Antwort tut zwei Dinge:
+            Adventures. Der Spieler hat eine mechanisch relevante Aktion
+            ausgefuehrt. Ein vorgeschalteter Judge hat bereits entschieden, was
+            sich am Spielzustand aendert. Deine Aufgabe ist, daraus eine kurze
+            Spielleiter-Erzaehlung zu machen.
 
-            1. SZENERIE: Greife den atmosphaerischen Anteil auf — Sinneseindruecke,
-               Reaktionen der Umgebung, kleine Details aus Ort und Tageszeit.
-            2. SUBTILER QUEST-HINWEIS: Webe einen leisen, atmosphaerischen Hinweis
-               ein, der den Spieler sanft in Richtung des aktuellen Quest schubst
-               — etwa eine Geste eines NSC, ein beilaeufiger Blick, ein Geraeusch,
-               ein zufaelliger Gedanke. NIE direkt ("du solltest...", "geh zu..."):
-               der Spieler muss frei bleiben, den Hinweis aufzugreifen oder zu
-               ignorieren.
+            DEIN AUSGANGSMATERIAL:
+            - JUDGE-VERDICT: Zusammenfassung + Liste der Flag-Aenderungen, jede
+              mit ihrem `grund`. Diese Aenderungen sind die Wahrheit der Welt —
+              deine Erzaehlung muss sie verlaesslich abbilden.
+            - LOCATION + PERSONEN + TAGESZEIT: liefern die Atmosphaere, in der
+              die Aktion stattfindet.
+            - CHATVERLAUF: Kontext fuer Ton-Konsistenz.
 
             REGELN:
+            - Erzaehle die Aktion und ihre UNMITTELBARE Konsequenz so, dass die
+              Flag-Aenderungen aus dem Verdict darin spuerbar werden — ohne
+              Flags, IDs oder das Wort "Flag" zu erwaehnen. Beispiel: setzt der
+              Verdict `party_bonus=true`, dann beschreibst du, wie der Spieler
+              in der Feier aufgeht.
+            - Erfinde KEINE neuen Spielzustands-Aenderungen, die nicht im
+              Verdict stehen. Wenn der Verdict leer ist, erzaehle atmosphaerisch
+              und neutral — ohne Fortschritt anzudeuten.
             - Du verraetst NIEMALS Meisterinformationen (MASTER-Bloecke). Sie
-              dienen dir nur zur Orientierung.
-            - "Spezielle Informationen" (SPECIAL) und Quest-Aufgaben (TASKS) sind
-              Steuerungswissen — nutze sie, um den Hinweis zu lenken, aber zitiere
-              sie nie woertlich.
-            - Konzentriere dich auf Aufgaben, die noch offen sind (deren Flags
-              nicht den Erfuellungswert haben). Bereits erfuellte Aufgaben sind
-              kein Hinweis-Ziel mehr.
-            - Dein Antwort aendert den Spielzustand nicht.
-            - Halte dich kurz: zwei bis vier Saetze, im Spielleiter-Ton.
+              dienen dir ausschliesslich zur Orientierung.
+            - "Spezielle Informationen" (SPECIAL) sind Hintergrund — verwende
+              sie zum Ausschmuecken, aber zitiere sie nicht woertlich.
+            - Halte dich kurz: zwei bis vier Saetze, Spielleiter-Ton.
             - Der HINWEIS des Klassifizierers ist Leitfaden, ueberschreibt aber
-              niemals die Wissensgrenzen.
+              niemals die obigen Regeln.
             """;
 
     private final ChatLanguageModel model;
 
-    public AmbientResponseAgent(ChatLanguageModel model) {
+    public ActionResponseAgent(ChatLanguageModel model) {
         this.model = Objects.requireNonNull(model, "model");
     }
 
@@ -76,6 +80,26 @@ public class AmbientResponseAgent {
     private static String buildUserPrompt(Context ctx) {
         StringBuilder sb = new StringBuilder();
 
+        sb.append("=== JUDGE-VERDICT ===\n");
+        Verdict v = ctx.verdict();
+        if (v == null) {
+            sb.append("(kein Verdict)\n");
+        } else {
+            sb.append("Zusammenfassung: ").append(nz(v.summary())).append("\n");
+            sb.append("Flag-Aenderungen:\n");
+            List<FlagChange> changes = v.flagChanges();
+            if (changes == null || changes.isEmpty()) {
+                sb.append("  (keine — Aktion veraendert den Spielzustand nicht)\n");
+            } else {
+                for (FlagChange fc : changes) {
+                    sb.append("  - ").append(fc.flagId())
+                            .append("=").append(fc.value())
+                            .append("  grund: ").append(nz(fc.reason())).append("\n");
+                }
+            }
+        }
+        sb.append("=== ENDE JUDGE-VERDICT ===\n\n");
+
         sb.append("=== HINWEIS DES KLASSIFIZIERERS ===\n");
         sb.append(nz(ctx.hints())).append("\n");
         sb.append("=== ENDE HINWEIS ===\n\n");
@@ -88,23 +112,10 @@ public class AmbientResponseAgent {
             sb.append("GENERAL: ").append(nz(ctx.quest().generalInfo())).append("\n");
             sb.append("SPECIAL: ").append(nz(ctx.quest().specialInfo())).append("\n");
             sb.append("MASTER: ").append(nz(ctx.quest().masterInfo())).append("\n");
-            sb.append("TASKS (Steuerungshinweise, nicht zitieren):\n");
-            List<QuestTask> tasks = ctx.quest().tasks();
-            if (tasks == null || tasks.isEmpty()) {
-                sb.append("  (keine)\n");
-            } else {
-                for (QuestTask t : tasks) {
-                    sb.append("  - ").append(nz(t.description()));
-                    if (t.completionCondition() != null) {
-                        sb.append("  [erfuellt durch: ").append(t.completionCondition()).append("]");
-                    }
-                    sb.append("\n");
-                }
-            }
         }
         sb.append("=== ENDE QUEST ===\n\n");
 
-        sb.append("=== AKTUELLER ORT ===\n");
+        sb.append("=== AKTUELLE LOCATION ===\n");
         if (ctx.location() == null) {
             sb.append("(unbekannt)\n");
         } else {
@@ -114,7 +125,7 @@ public class AmbientResponseAgent {
             sb.append("MASTER: ").append(nz(ctx.location().masterInfo())).append("\n");
         }
         sb.append("Tageszeit: ").append(nz(ctx.currentTime())).append("\n");
-        sb.append("=== ENDE ORT ===\n\n");
+        sb.append("=== ENDE LOCATION ===\n\n");
 
         sb.append("=== ANWESENDE PERSONEN ===\n");
         List<Person> persons = ctx.presentPersons();
@@ -130,17 +141,6 @@ public class AmbientResponseAgent {
         }
         sb.append("=== ENDE PERSONEN ===\n\n");
 
-        sb.append("=== SPIEL-FLAGS ===\n");
-        Map<String, Boolean> flags = ctx.flags();
-        if (flags == null || flags.isEmpty()) {
-            sb.append("(keine)\n");
-        } else {
-            for (Map.Entry<String, Boolean> e : flags.entrySet()) {
-                sb.append("- ").append(e.getKey()).append("=").append(e.getValue()).append("\n");
-            }
-        }
-        sb.append("=== ENDE FLAGS ===\n\n");
-
         sb.append("=== CHATVERLAUF (juengste zuletzt) ===\n");
         List<GameChat.Turn> hist = ctx.recentHistory();
         if (hist == null || hist.isEmpty()) {
@@ -153,9 +153,9 @@ public class AmbientResponseAgent {
         }
         sb.append("=== ENDE CHATVERLAUF ===\n\n");
 
-        sb.append("=== SPIELER-EINGABE ===\n");
+        sb.append("=== AKTION DES SPIELERS ===\n");
         sb.append(nz(ctx.playerInput()).strip()).append("\n");
-        sb.append("=== ENDE SPIELER-EINGABE ===\n");
+        sb.append("=== ENDE AKTION ===\n");
 
         return sb.toString();
     }

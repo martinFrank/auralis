@@ -1,10 +1,8 @@
-package com.github.martinfrank.elitegames.auralis.agent;
+package com.github.martinfrank.elitegames.auralis.agent.chat;
 
 import com.github.martinfrank.elitegames.auralis.adventure.*;
-import com.github.martinfrank.elitegames.auralis.agent.ClassifyInputAgent.Category;
-import com.github.martinfrank.elitegames.auralis.agent.ClassifyInputAgent.Classification;
-import com.github.martinfrank.elitegames.auralis.agent.ClassifyInputAgent.Context;
-import com.github.martinfrank.elitegames.auralis.agent.ClassifyInputAgent.TargetType;
+import com.github.martinfrank.elitegames.auralis.agent.chat.ClassifyInputAgent.Classification;
+import com.github.martinfrank.elitegames.auralis.agent.chat.ClassifyInputAgent.Context;
 import com.github.martinfrank.elitegames.auralis.game.GameChat;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
@@ -14,8 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ClassifyInputAgentTest {
 
@@ -30,44 +26,6 @@ class ClassifyInputAgentTest {
 
     private static final String WALFISCH_ID = "0bd69e14-713c-4c65-ab28-898eb9d4a381";
     private static final String SUCHE_QUEST_ID = "1f5858e2-a28c-4f2b-b435-01b9051adf20";
-
-    @Test
-    void classifiesDialogWithWirt() throws IOException {
-        InputStream in = ClassifyInputAgentTest.class.getResourceAsStream(RESOURCE);
-        Adventure adventure = new AdventureReader().read(in);
-
-        Quest quest = adventure.getQuest(SUCHE_QUEST_ID);
-        Location location = adventure.getLocation(WALFISCH_ID);
-        List<Person> present = location.persons().stream()
-                .map(PersonPresence::personId)
-                .map(id -> adventure.content().persons().stream()
-                        .filter(p -> p.id().equals(id))
-                        .findAny().orElseThrow())
-                .toList();
-
-        Context context = new Context(
-                quest,
-                location,
-                present,
-                List.of(),
-                "Ich frage den Wirt nach dem entfuehrten Vater."
-        );
-
-        ChatLanguageModel model = chatModel();
-        ClassifyInputAgent agent = new ClassifyInputAgent(model);
-
-        Classification c = agent.classify(context);
-
-        System.out.println("=== KLASSIFIKATION ===");
-        System.out.println("Kategorie:   " + c.category());
-        System.out.println("Begruendung: " + c.reasoning());
-        System.out.println("TargetTyp:   " + c.targetType());
-        System.out.println("TargetId:    " + c.targetId());
-        System.out.println("Hinweis:     " + c.hints());
-        System.out.println();
-        System.out.println("=== ROHANTWORT ===");
-        System.out.println(c.raw());
-    }
 
     @Test
     void testMyWords() throws IOException {
@@ -118,8 +76,8 @@ class ClassifyInputAgentTest {
                 location,
                 List.of(),
                 conversation,
-                "Ich frage einen Händler, ob es hier eine gute Taverne gibt."
-//                "Gibt es hier einen Waffenladen?."
+//                "Ich frage einen Händler, ob es hier eine gute Taverne gibt."
+                "Gibt es hier einen Waffenladen?."
         );
 
         ChatLanguageModel model = chatModel();

@@ -1,10 +1,10 @@
-package com.github.martinfrank.elitegames.auralis.agent;
+package com.github.martinfrank.elitegames.auralis.agent.chat;
 
 import com.github.martinfrank.elitegames.auralis.adventure.Adventure;
 import com.github.martinfrank.elitegames.auralis.adventure.AdventureReader;
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
-import com.github.martinfrank.elitegames.auralis.agent.OocResponseAgent.Context;
+import com.github.martinfrank.elitegames.auralis.agent.chat.OocResponseAgent.Context;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import org.junit.jupiter.api.Test;

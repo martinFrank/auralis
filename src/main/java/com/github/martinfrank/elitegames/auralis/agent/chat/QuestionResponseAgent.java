@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.auralis.agent;
+package com.github.martinfrank.elitegames.auralis.agent.chat;
 
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;

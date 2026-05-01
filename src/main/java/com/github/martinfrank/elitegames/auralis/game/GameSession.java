@@ -8,6 +8,7 @@ import com.github.martinfrank.elitegames.auralis.adventure.Quest;
 import com.github.martinfrank.elitegames.auralis.adventure.Questbook;
 import com.github.martinfrank.elitegames.auralis.character.Party;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -38,6 +39,14 @@ public class GameSession {
 
     public void setFlag(String id, boolean value) {
         flags.put(id, value);
+    }
+
+    public Map<String, Boolean> getFlags() {
+        return Collections.unmodifiableMap(flags);
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
     }
 
     public Quest getCurrentQuest() {
