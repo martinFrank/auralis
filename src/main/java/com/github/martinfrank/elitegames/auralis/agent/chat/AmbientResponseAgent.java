@@ -12,7 +12,6 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.output.Response;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class AmbientResponseAgent {
@@ -20,9 +19,9 @@ public class AmbientResponseAgent {
     public record Context(
             Location location,
             Quest quest,
+            List<QuestTask> openTasks,
             List<Person> presentPersons,
             String currentTime,
-            Map<String, Boolean> flags,
             List<GameChat.Turn> recentHistory,
             String hints,
             String playerInput
@@ -48,9 +47,8 @@ public class AmbientResponseAgent {
             - "Spezielle Informationen" (SPECIAL) und Quest-Aufgaben (TASKS) sind
               Steuerungswissen — nutze sie, um den Hinweis zu lenken, aber zitiere
               sie nie woertlich.
-            - Konzentriere dich auf Aufgaben, die noch offen sind (deren Flags
-              nicht den Erfuellungswert haben). Bereits erfuellte Aufgaben sind
-              kein Hinweis-Ziel mehr.
+            - Die TASKS-Liste enthaelt nur noch offene Aufgaben — waehle eine
+              davon als Ziel deines subtilen Hinweises.
             - Dein Antwort aendert den Spielzustand nicht.
             - Halte dich kurz: zwei bis vier Saetze, im Spielleiter-Ton.
             - Der HINWEIS des Klassifizierers ist Leitfaden, ueberschreibt aber
@@ -88,17 +86,13 @@ public class AmbientResponseAgent {
             sb.append("GENERAL: ").append(nz(ctx.quest().generalInfo())).append("\n");
             sb.append("SPECIAL: ").append(nz(ctx.quest().specialInfo())).append("\n");
             sb.append("MASTER: ").append(nz(ctx.quest().masterInfo())).append("\n");
-            sb.append("TASKS (Steuerungshinweise, nicht zitieren):\n");
-            List<QuestTask> tasks = ctx.quest().tasks();
-            if (tasks == null || tasks.isEmpty()) {
-                sb.append("  (keine)\n");
+            sb.append("TASKS (offene Aufgaben, Steuerungshinweise, nicht zitieren):\n");
+            List<QuestTask> openTasks = ctx.openTasks();
+            if (openTasks == null || openTasks.isEmpty()) {
+                sb.append("  (keine offenen Aufgaben)\n");
             } else {
-                for (QuestTask t : tasks) {
-                    sb.append("  - ").append(nz(t.description()));
-                    if (t.completionCondition() != null) {
-                        sb.append("  [erfuellt durch: ").append(t.completionCondition()).append("]");
-                    }
-                    sb.append("\n");
+                for (QuestTask t : openTasks) {
+                    sb.append("  - ").append(nz(t.description())).append("\n");
                 }
             }
         }
@@ -129,17 +123,6 @@ public class AmbientResponseAgent {
             }
         }
         sb.append("=== ENDE PERSONEN ===\n\n");
-
-        sb.append("=== SPIEL-FLAGS ===\n");
-        Map<String, Boolean> flags = ctx.flags();
-        if (flags == null || flags.isEmpty()) {
-            sb.append("(keine)\n");
-        } else {
-            for (Map.Entry<String, Boolean> e : flags.entrySet()) {
-                sb.append("- ").append(e.getKey()).append("=").append(e.getValue()).append("\n");
-            }
-        }
-        sb.append("=== ENDE FLAGS ===\n\n");
 
         sb.append("=== CHATVERLAUF (juengste zuletzt) ===\n");
         List<GameChat.Turn> hist = ctx.recentHistory();

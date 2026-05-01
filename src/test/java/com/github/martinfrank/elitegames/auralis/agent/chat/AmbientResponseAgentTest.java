@@ -2,7 +2,10 @@ package com.github.martinfrank.elitegames.auralis.agent.chat;
 
 import com.github.martinfrank.elitegames.auralis.adventure.*;
 import com.github.martinfrank.elitegames.auralis.agent.chat.AmbientResponseAgent.Context;
+import com.github.martinfrank.elitegames.auralis.character.Adventurer;
+import com.github.martinfrank.elitegames.auralis.character.Party;
 import com.github.martinfrank.elitegames.auralis.game.GameChat;
+import com.github.martinfrank.elitegames.auralis.game.GameSession;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import org.junit.jupiter.api.Test;
@@ -30,6 +33,8 @@ class AmbientResponseAgentTest {
 
         Quest quest = adventure.getQuest("7a91e163-860f-4db0-b231-08d76123afdb");
         Location location = adventure.getLocation(quest.startLocationId());
+
+        GameSession session = new GameSession(adventure, new Party(List.of(new Adventurer("Rolf"))));
 
         List<GameChat.Turn> conversation = List.of(
                 new GameChat.Turn(GameChat.Source.HEROLD, "statischer Introtext",
@@ -67,7 +72,7 @@ class AmbientResponseAgentTest {
                                 """),
                 new GameChat.Turn(GameChat.Source.HEROLD, "eingabe des spielers",
                         """
-                                beschreibe mir den Marktplatz.
+                                ich schaue mich auf dem Marktplatz um.
                                 """)
         );
 
@@ -89,73 +94,67 @@ class AmbientResponseAgentTest {
         Context context = new Context(
                 location,
                 quest,
-                List.of(),
-                "spaet abends",
-                Map.of(
-                        "walk_to_tavern", true,
-                        "await_arberds_intro", true,
-                        "escape_the_brawl", true,
-                        "found_arberds_address", false,
-                        "ready_to_visit_arberds", false,
-                        "party_bonus", false,
-                        "brawling_bonus", false
-                ),
-                List.of(),
-                "Atmosphaerische Antwort, baue einen subtilen Hinweis Richtung Wirt-Befragung ein.",
-                "Ich lehne mich an die Theke und schaue mich neugierig um."
+                session.getOpenTasks(quest),
+                session.getPresentPersons(location),
+                "nachmittags",
+                conversation,
+                "Beschreibe den Markplatz ausführlicher.",
+                "ich schaue mich auf dem Marktplatz um."
         );
 
         ChatLanguageModel model = chatModel();
         AmbientResponseAgent agent = new AmbientResponseAgent(model);
+        String response = agent.respond(context);
+        System.out.println(response);
 
     }
 
 
-    @Test
-    void ambientResponseInTavern() throws IOException {
-        InputStream in = AmbientResponseAgentTest.class.getResourceAsStream(RESOURCE);
-        Adventure adventure = new AdventureReader().read(in);
-
-        Quest quest = adventure.getQuest(SUCHE_QUEST_ID);
-        Location location = adventure.getLocation(WALFISCH_ID);
-        List<Person> present = location.persons().stream()
-                .map(PersonPresence::personId)
-                .map(id -> adventure.content().persons().stream()
-                        .filter(p -> p.id().equals(id))
-                        .findAny().orElseThrow())
-                .toList();
-
-        Context context = new Context(
-                location,
-                quest,
-                present,
-                "spaet abends",
-                Map.of(
-                        "walk_to_tavern", true,
-                        "await_arberds_intro", true,
-                        "escape_the_brawl", true,
-                        "found_arberds_address", false,
-                        "ready_to_visit_arberds", false,
-                        "party_bonus", false,
-                        "brawling_bonus", false
-                ),
-                List.of(),
-                "Atmosphaerische Antwort, baue einen subtilen Hinweis Richtung Wirt-Befragung ein.",
-                "Ich lehne mich an die Theke und schaue mich neugierig um."
-        );
-
-        ChatLanguageModel model = chatModel();
-        AmbientResponseAgent agent = new AmbientResponseAgent(model);
-
-        long start = System.currentTimeMillis();
-        String reply = agent.respond(context);
-        long duration = System.currentTimeMillis() - start;
-
-        System.out.println("=== ANTWORT ===");
-        System.out.println(reply);
-        System.out.println();
-        System.out.println("took " + duration + "ms");
-    }
+//    @Test
+//    void ambientResponseInTavern() throws IOException {
+//        InputStream in = AmbientResponseAgentTest.class.getResourceAsStream(RESOURCE);
+//        Adventure adventure = new AdventureReader().read(in);
+//
+//        Quest quest = adventure.getQuest(SUCHE_QUEST_ID);
+//        Location location = adventure.getLocation(WALFISCH_ID);
+//        List<Person> present = location.persons().stream()
+//                .map(PersonPresence::personId)
+//                .map(id -> adventure.content().persons().stream()
+//                        .filter(p -> p.id().equals(id))
+//                        .findAny().orElseThrow())
+//                .toList();
+//
+//        Context context = new Context(
+//                location,
+//                quest,
+//                present,
+//                "spaet abends",
+//                Map.of(
+//                        "walk_to_tavern", true,
+//                        "await_arberds_intro", true,
+//                        "escape_the_brawl", true,
+//                        "found_arberds_address", false,
+//                        "ready_to_visit_arberds", false,
+//                        "party_bonus", false,
+//                        "brawling_bonus", false
+//                ),
+//                List.of(),
+//                "Atmosphaerische Antwort, baue einen subtilen Hinweis Richtung Wirt-Befragung ein.",
+//                "Ich lehne mich an die Theke und schaue mich neugierig um."
+//        );
+//
+//        ChatLanguageModel model = chatModel();
+//        AmbientResponseAgent agent = new AmbientResponseAgent(model);
+//
+//        long start = System.currentTimeMillis();
+//        String reply = agent.respond(context);
+//        long duration = System.currentTimeMillis() - start;
+//
+//        System.out.println("=== ANTWORT ===");
+//        System.out.println(reply);
+//        System.out.println();
+//        System.out.println("took " + duration + "ms");
+//    }
 
     private static ChatLanguageModel chatModel() {
         return OllamaChatModel.builder()

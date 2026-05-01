@@ -7,7 +7,9 @@ import com.github.martinfrank.elitegames.auralis.adventure.FlagCondition;
 import com.github.martinfrank.elitegames.auralis.adventure.Item;
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;
+import com.github.martinfrank.elitegames.auralis.adventure.PersonPresence;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
+import com.github.martinfrank.elitegames.auralis.adventure.QuestTask;
 import com.github.martinfrank.elitegames.auralis.adventure.Questbook;
 import com.github.martinfrank.elitegames.auralis.character.Party;
 
@@ -84,6 +86,17 @@ public class GameSession {
                 "Condition-Typ noch nicht unterstützt: " + condition.getClass().getSimpleName());
     }
 
+    public List<QuestTask> getOpenTasks(Quest quest) {
+        Objects.requireNonNull(quest, "quest");
+        List<QuestTask> tasks = quest.tasks();
+        if (tasks == null) return List.of();
+        return tasks.stream().filter(t -> !isTaskCompleted(t)).toList();
+    }
+
+    private boolean isTaskCompleted(QuestTask task) {
+        return task.completionCondition() != null && evaluate(task.completionCondition());
+    }
+
     public void setCurrentLocationId(String locationId) {
         party.setLocationId(locationId);
     }
@@ -110,6 +123,23 @@ public class GameSession {
         List<Person> all = adventure.content().persons();
         if (all == null) return List.of();
         return all.stream().filter(p -> isRevealed(p.revealed())).toList();
+    }
+
+    public List<Person> getPresentPersons(Location location) {
+        Objects.requireNonNull(location, "location");
+        List<PersonPresence> presences = location.persons();
+        if (presences == null || presences.isEmpty()) return List.of();
+        return presences.stream()
+                .filter(pp -> pp.condition() == null || evaluate(pp.condition()))
+                .map(pp -> findPerson(pp.personId()))
+                .toList();
+    }
+
+    private Person findPerson(String id) {
+        return adventure.content().persons().stream()
+                .filter(p -> p.id().equals(id))
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("Person nicht gefunden: " + id));
     }
 
     public List<Item> getRevealedItems() {
