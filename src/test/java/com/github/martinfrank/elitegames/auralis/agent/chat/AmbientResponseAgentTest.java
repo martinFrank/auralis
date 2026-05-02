@@ -110,52 +110,6 @@ class AmbientResponseAgentTest {
     }
 
 
-//    @Test
-//    void ambientResponseInTavern() throws IOException {
-//        InputStream in = AmbientResponseAgentTest.class.getResourceAsStream(RESOURCE);
-//        Adventure adventure = new AdventureReader().read(in);
-//
-//        Quest quest = adventure.getQuest(SUCHE_QUEST_ID);
-//        Location location = adventure.getLocation(WALFISCH_ID);
-//        List<Person> present = location.persons().stream()
-//                .map(PersonPresence::personId)
-//                .map(id -> adventure.content().persons().stream()
-//                        .filter(p -> p.id().equals(id))
-//                        .findAny().orElseThrow())
-//                .toList();
-//
-//        Context context = new Context(
-//                location,
-//                quest,
-//                present,
-//                "spaet abends",
-//                Map.of(
-//                        "walk_to_tavern", true,
-//                        "await_arberds_intro", true,
-//                        "escape_the_brawl", true,
-//                        "found_arberds_address", false,
-//                        "ready_to_visit_arberds", false,
-//                        "party_bonus", false,
-//                        "brawling_bonus", false
-//                ),
-//                List.of(),
-//                "Atmosphaerische Antwort, baue einen subtilen Hinweis Richtung Wirt-Befragung ein.",
-//                "Ich lehne mich an die Theke und schaue mich neugierig um."
-//        );
-//
-//        ChatLanguageModel model = chatModel();
-//        AmbientResponseAgent agent = new AmbientResponseAgent(model);
-//
-//        long start = System.currentTimeMillis();
-//        String reply = agent.respond(context);
-//        long duration = System.currentTimeMillis() - start;
-//
-//        System.out.println("=== ANTWORT ===");
-//        System.out.println(reply);
-//        System.out.println();
-//        System.out.println("took " + duration + "ms");
-//    }
-
     private static ChatLanguageModel chatModel() {
         return OllamaChatModel.builder()
                 .baseUrl(OLLAMA_URL)
