@@ -16,6 +16,8 @@ import java.util.Objects;
 
 public class QuestionResponseAgent {
 
+    //Question = der Herold beantwortet eine Wissensfrage aus weltweiter Sicht, mit dem ganzen verfügbaren Weltkontext.
+
     public record Context(
             Location location,
             Quest quest,

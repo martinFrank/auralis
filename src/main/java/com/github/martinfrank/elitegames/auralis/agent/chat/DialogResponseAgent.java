@@ -14,6 +14,8 @@ import java.util.Objects;
 
 public class DialogResponseAgent {
 
+    //Dialog = eine konkrete NPC redet zurück, mit ihrem Persona-Wissen und nur grobem Umgebungskontext.
+
     public record Context(
             Person addressedPerson,
             Location location,
