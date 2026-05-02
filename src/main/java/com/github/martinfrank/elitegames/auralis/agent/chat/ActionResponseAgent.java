@@ -4,6 +4,8 @@ import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
 import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent.FlagChange;
+import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent.LocationChange;
+import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent.TimeChange;
 import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent.Verdict;
 import com.github.martinfrank.elitegames.auralis.game.GameChat;
 import dev.langchain4j.data.message.AiMessage;
@@ -36,19 +38,26 @@ public class ActionResponseAgent {
             Spielleiter-Erzaehlung zu machen.
 
             DEIN AUSGANGSMATERIAL:
-            - JUDGE-VERDICT: Zusammenfassung + Liste der Flag-Aenderungen, jede
-              mit ihrem `grund`. Diese Aenderungen sind die Wahrheit der Welt —
-              deine Erzaehlung muss sie verlaesslich abbilden.
-            - LOCATION + PERSONEN + TAGESZEIT: liefern die Atmosphaere, in der
-              die Aktion stattfindet.
+            - JUDGE-VERDICT: Zusammenfassung, optionale Bewegung, optionale
+              Zeitaenderung, Liste der Flag-Aenderungen — jede mit `grund`.
+              Diese Aenderungen sind die Wahrheit der Welt; deine Erzaehlung
+              muss sie verlaesslich abbilden.
+            - LOCATION + PERSONEN + TAGESZEIT entsprechen dem Stand NACH der
+              Aktion (Bewegung und Zeit sind bereits angewandt).
             - CHATVERLAUF: Kontext fuer Ton-Konsistenz.
 
             REGELN:
             - Erzaehle die Aktion und ihre UNMITTELBARE Konsequenz so, dass die
-              Flag-Aenderungen aus dem Verdict darin spuerbar werden — ohne
-              Flags, IDs oder das Wort "Flag" zu erwaehnen. Beispiel: setzt der
-              Verdict `party_bonus=true`, dann beschreibst du, wie der Spieler
-              in der Feier aufgeht.
+              Verdict-Aenderungen darin spuerbar werden — ohne Flags, IDs oder
+              das Wort "Flag" zu erwaehnen. Beispiel: setzt der Verdict
+              `party_bonus=true`, dann beschreibst du, wie der Spieler in der
+              Feier aufgeht.
+            - Bei BEWEGUNG: erzaehle den Aufbruch und die Ankunft am neuen Ort,
+              kurz und stimmig zur Atmosphaere des neuen Ortes — nenne den
+              toLocationId NICHT, sondern den klingenden Namen aus LOCATION.
+            - Bei ZEITAENDERUNG: lass das Vergehen der Stunden spuerbar werden
+              ("die Sonne sinkt", "tief in der Nacht"), ohne den Slot-Namen
+              zu zitieren.
             - Erfinde KEINE neuen Spielzustands-Aenderungen, die nicht im
               Verdict stehen. Wenn der Verdict leer ist, erzaehle atmosphaerisch
               und neutral — ohne Fortschritt anzudeuten.
@@ -86,10 +95,27 @@ public class ActionResponseAgent {
             sb.append("(kein Verdict)\n");
         } else {
             sb.append("Zusammenfassung: ").append(nz(v.summary())).append("\n");
+
+            LocationChange lc = v.locationChange();
+            if (lc == null) {
+                sb.append("Bewegung: keine\n");
+            } else {
+                sb.append("Bewegung: -> ").append(lc.toLocationId())
+                        .append("  grund: ").append(nz(lc.reason())).append("\n");
+            }
+
+            TimeChange tc = v.timeChange();
+            if (tc == null) {
+                sb.append("Zeit: unveraendert\n");
+            } else {
+                sb.append("Zeit: -> ").append(tc.newTime())
+                        .append("  grund: ").append(nz(tc.reason())).append("\n");
+            }
+
             sb.append("Flag-Aenderungen:\n");
             List<FlagChange> changes = v.flagChanges();
             if (changes == null || changes.isEmpty()) {
-                sb.append("  (keine — Aktion veraendert den Spielzustand nicht)\n");
+                sb.append("  (keine)\n");
             } else {
                 for (FlagChange fc : changes) {
                     sb.append("  - ").append(fc.flagId())

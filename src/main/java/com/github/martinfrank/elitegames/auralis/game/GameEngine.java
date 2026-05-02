@@ -5,6 +5,7 @@ import com.github.martinfrank.elitegames.auralis.adventure.Flag;
 import com.github.martinfrank.elitegames.auralis.adventure.Location;
 import com.github.martinfrank.elitegames.auralis.adventure.Person;
 import com.github.martinfrank.elitegames.auralis.adventure.Quest;
+import com.github.martinfrank.elitegames.auralis.adventure.Transition;
 import com.github.martinfrank.elitegames.auralis.agent.chat.ActionJudgeAgent;
 import com.github.martinfrank.elitegames.auralis.agent.chat.ActionResponseAgent;
 import com.github.martinfrank.elitegames.auralis.agent.Agents;
@@ -29,6 +30,9 @@ public class GameEngine {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameEngine.class);
     private static final int HISTORY_WINDOW = 10;
+
+    static final List<String> TIME_ORDER = List.of(
+            "morning", "noon", "afternoon", "evening", "night", "midnight");
 
     private final GameSession gameSession;
     private final Agents agents;
@@ -151,11 +155,14 @@ public class GameEngine {
                               List<Person> persons, List<GameChat.Turn> history, String playerInput) {
         ActionJudgeAgent.Verdict verdict = agents.getActionJudgeAgent().judge(
                 new ActionJudgeAgent.Context(quest, location, gameSession.getFlags(),
+                        gameSession.getCurrentTime(), forwardTimes(gameSession.getCurrentTime()),
                         c.hints(), playerInput));
-        applyFlagChanges(verdict);
+        applyVerdict(verdict, location);
 
+        Location locationAfter = currentLocation();
+        List<Person> personsAfter = gameSession.getPresentPersons(locationAfter);
         ActionResponseAgent.Context ctx = new ActionResponseAgent.Context(
-                verdict, quest, location, persons, gameSession.getCurrentTime(),
+                verdict, quest, locationAfter, personsAfter, gameSession.getCurrentTime(),
                 history, c.hints(), playerInput);
         String reply = agents.getActionResponseAgent().respond(ctx);
         gameSession.getChat().addHeroldMessage("[ACTION] " + verdict.summary(), reply);
@@ -174,6 +181,12 @@ public class GameEngine {
                 quest, location, persons, c.hints(), playerInput);
         String reply = agents.getUnclearResponseAgent().respond(ctx);
         gameSession.getChat().addHeroldMessage("[UNCLEAR] " + c.reasoning(), reply);
+    }
+
+    private void applyVerdict(ActionJudgeAgent.Verdict verdict, Location locationBefore) {
+        applyFlagChanges(verdict);
+        applyLocationChange(verdict.locationChange(), locationBefore);
+        applyTimeChange(verdict.timeChange());
     }
 
     private void applyFlagChanges(ActionJudgeAgent.Verdict verdict) {
@@ -195,6 +208,60 @@ public class GameEngine {
                     fc.flagId(), gameSession.isFlagSet(fc.flagId()), fc.value(), fc.reason());
             gameSession.setFlag(fc.flagId(), fc.value());
         }
+    }
+
+    private void applyLocationChange(ActionJudgeAgent.LocationChange lc, Location locationBefore) {
+        if (lc == null) return;
+        Set<String> reachable = locationBefore == null || locationBefore.transitions() == null
+                ? Set.of()
+                : locationBefore.transitions().stream().map(Transition::to).collect(Collectors.toSet());
+        if (!reachable.contains(lc.toLocationId())) {
+            LOG.warn("Judge schlaegt nicht erreichbare Location vor (verworfen): to={} grund={} | erreichbar={}",
+                    lc.toLocationId(), lc.reason(), reachable);
+            return;
+        }
+        if (lc.toLocationId().equals(gameSession.getCurrentLocationId())) {
+            LOG.info("Judge schlaegt Bewegung zur aktuellen Location vor (no-op): to={}", lc.toLocationId());
+            return;
+        }
+        LOG.info("Judge bewegt Gruppe: {} -> {} (grund: {})",
+                gameSession.getCurrentLocationId(), lc.toLocationId(), lc.reason());
+        gameSession.setCurrentLocationId(lc.toLocationId());
+    }
+
+    private void applyTimeChange(ActionJudgeAgent.TimeChange tc) {
+        if (tc == null) return;
+        String current = gameSession.getCurrentTime();
+        int currentIdx = TIME_ORDER.indexOf(current);
+        int newIdx = TIME_ORDER.indexOf(tc.newTime());
+        if (newIdx < 0) {
+            LOG.warn("Judge schlaegt unbekannte Tageszeit vor (verworfen): newTime={} grund={} | erlaubt={}",
+                    tc.newTime(), tc.reason(), TIME_ORDER);
+            return;
+        }
+        if (currentIdx < 0) {
+            LOG.warn("Aktuelle Tageszeit nicht in TIME_ORDER: current={} — setze auf {} (grund: {})",
+                    current, tc.newTime(), tc.reason());
+            gameSession.setCurrentTime(tc.newTime());
+            return;
+        }
+        if (newIdx == currentIdx) {
+            LOG.info("Judge schlaegt unveraenderte Tageszeit vor (no-op): {}", tc.newTime());
+            return;
+        }
+        if (newIdx < currentIdx) {
+            LOG.warn("Judge schlaegt Zeitumkehr vor (verworfen): {} -> {} grund={}",
+                    current, tc.newTime(), tc.reason());
+            return;
+        }
+        LOG.info("Judge setzt Tageszeit: {} -> {} (grund: {})", current, tc.newTime(), tc.reason());
+        gameSession.setCurrentTime(tc.newTime());
+    }
+
+    static List<String> forwardTimes(String currentTime) {
+        int idx = TIME_ORDER.indexOf(currentTime);
+        if (idx < 0) return TIME_ORDER;
+        return TIME_ORDER.subList(idx + 1, TIME_ORDER.size());
     }
 
     private Location currentLocation() {

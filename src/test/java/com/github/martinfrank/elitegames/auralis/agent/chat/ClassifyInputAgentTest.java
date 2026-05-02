@@ -78,7 +78,8 @@ class ClassifyInputAgentTest {
                 conversation,
 //                "Ich frage einen Händler, ob es hier eine gute Taverne gibt."
 //                "Gibt es hier einen Waffenladen?."
-                "beschreibe mir den Marktplatz"
+//                "beschreibe mir den Marktplatz"
+                "wir machen uns auf, um die Taverne zum tanzenden Stier zu besuchen"
         );
 
         ChatLanguageModel model = chatModel();

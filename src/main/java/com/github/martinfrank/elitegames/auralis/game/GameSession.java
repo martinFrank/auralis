@@ -151,4 +151,8 @@ public class GameSession {
     private boolean isRevealed(String flagId) {
         return flagId == null || isFlagSet(flagId);
     }
+
+    public Location getLocation(String currentLocationId) {
+        return adventure.getLocation(currentLocationId);
+    }
 }
