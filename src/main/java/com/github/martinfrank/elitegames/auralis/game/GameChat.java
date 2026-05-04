@@ -31,7 +31,8 @@ public class GameChat {
 
     private void add(Source source, String msgInfo, String content) {
         Turn turn = new Turn(source, msgInfo, content);
-        LOG.info("[{}] [{}] {}", source, msgInfo, content);
+        LOG.debug("[{}] [{}] {}", source, msgInfo, content);
+        LOG.info(content);
         history.add(turn);
     }
 }

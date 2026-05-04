@@ -56,7 +56,8 @@
       "Bash(\"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" -q -Dtest='ActionJudgeAgentTest#parsesVerdictWithMultipleFlagChanges+ActionJudgeAgentTest#parsesVerdictWithEmptyFlagList+ActionJudgeAgentTest#parsesVerdictWithLocationChange+ActionJudgeAgentTest#stripsThinkingAndStillParses' test)",
       "Bash(\"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" -Dtest='ActionJudgeAgentTest#parsesVerdictWithMultipleFlagChanges+ActionJudgeAgentTest#parsesVerdictWithEmptyFlagList+ActionJudgeAgentTest#parsesVerdictWithLocationChange+ActionJudgeAgentTest#stripsThinkingAndStillParses' test)",
       "Bash(\"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" \"-Dtest=ActionJudgeAgentTest#parsesVerdict*+stripsThinking*\" test)",
-      "Bash(\"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" \"-Dtest=AppTest,AdventureReaderTest\" test)"
+      "Bash(\"C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd\" \"-Dtest=AppTest,AdventureReaderTest\" test)",
+      "Bash(C:\\\\Users\\\\m.frank\\\\work\\\\apache-maven-3.9.6-bin\\\\apache-maven-3.9.6\\\\bin\\\\mvn.cmd *)"
     ]
   }
 }

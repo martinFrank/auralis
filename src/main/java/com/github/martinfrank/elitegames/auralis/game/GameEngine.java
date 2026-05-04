@@ -48,25 +48,11 @@ public class GameEngine {
         gameSession.getChat().addHeroldMessage("statischer Introtext",
                 "willkommen bei dem Abenteuer \"" + gameSession.getAdventure().title()
                         + "\" von " + gameSession.getAdventure().author());
-        gameSession.getChat().addHeroldMessage("statischer Introtext",
-                gameSession.getAdventure().description());
-
+//        gameSession.getChat().addHeroldMessage("statischer Introtext",
+//                gameSession.getAdventure().description());
         startQuest(current);
-
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < 10 && scanner.hasNextLine(); i++) {
-            String playerInput = scanner.nextLine();
-            gameSession.getChat().addPlayerMessage(playerInput);
-
-            handleTurn(playerInput);
-
-            Quest next = gameSession.getCurrentQuest();
-            if (next != null && (current == null || !Objects.equals(current.id(), next.id()))) {
-                startQuest(next);
-                current = next;
-            }
-        }
     }
+
 
     private void startQuest(Quest quest) {
         gameSession.setCurrentLocationId(quest.startLocationId());
@@ -80,7 +66,7 @@ public class GameEngine {
                 "quest-location allgemeine beschreibung", location.generalInfo());
     }
 
-    private void handleTurn(String playerInput) {
+    public void handleTurn(String playerInput) {
         Quest quest = gameSession.getCurrentQuest();
         Location location = currentLocation();
         List<Person> persons = gameSession.getPresentPersons(location);
@@ -88,7 +74,7 @@ public class GameEngine {
 
         Classification classification = agents.getClassifyInputAgent().classify(
                 new ClassifyInputAgent.Context(quest, location, persons, history, playerInput));
-        LOG.info("Klassifikation: {} | {} | target={}/{}",
+        LOG.debug("Klassifikation: {} | {} | target={}/{}",
                 classification.category(), classification.reasoning(),
                 classification.targetType(), classification.targetId());
 
@@ -259,9 +245,9 @@ public class GameEngine {
     }
 
     static List<String> forwardTimes(String currentTime) {
-        int idx = TIME_ORDER.indexOf(currentTime);
-        if (idx < 0) return TIME_ORDER;
-        return TIME_ORDER.subList(idx + 1, TIME_ORDER.size());
+        int idx = TIME_ORDER.indexOf(currentTime)+1;
+        if (idx > TIME_ORDER.size()) return TIME_ORDER;
+        return TIME_ORDER.subList(idx, TIME_ORDER.size());
     }
 
     private Location currentLocation() {
@@ -272,5 +258,9 @@ public class GameEngine {
         List<GameChat.Turn> all = gameSession.getChat().transcript();
         if (all.size() <= HISTORY_WINDOW) return all;
         return all.subList(all.size() - HISTORY_WINDOW, all.size());
+    }
+
+    public void submitPlayerMessage(String playerMessage) {
+
     }
 }

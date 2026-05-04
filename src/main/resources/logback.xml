@@ -10,4 +10,5 @@
     </root>
 
     <logger name="dev.langchain4j" level="INFO"/>
+    <logger name="com.github.martinfrank.elitegames.auralis" level="DEBUG"/>
 </configuration>

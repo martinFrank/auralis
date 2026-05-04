@@ -95,9 +95,6 @@ public class ClassifyInputAgent {
                 SystemMessage.from(SYSTEM_PROMPT),
                 UserMessage.from(userPrompt)
         ));
-        System.out.println("---MetaData start---");
-        System.out.println(response.metadata());
-        System.out.println("---MetaData end---");
         return parse(response.content().text());
     }
 
@@ -159,8 +156,8 @@ public class ClassifyInputAgent {
         String body = stripThinking(raw);
         String categoryRaw = require(body, "KATEGORIE");
         Category category = Category.valueOf(categoryRaw.toUpperCase(Locale.ROOT));
-        String reasoning = require(body, "BEGRUENDUNG");
-        TargetType targetType = parseTargetType(extract(body, "TARGET_TYP"));
+        String reasoning = require(body, "BEGRUENDUNG", "BEGRÜNDUNG", "BEGRUNDUNG");
+        TargetType targetType = parseTargetType(extract(body, "TARGET_TYP", "TARGET_TYPE"));
         String targetId = parseTargetId(extract(body, "TARGET_ID"));
         String hints = require(body, "HINWEIS");
         return new Classification(category, reasoning, targetType, targetId, hints, raw);
@@ -180,19 +177,24 @@ public class ClassifyInputAgent {
         return s;
     }
 
-    private static String require(String body, String field) {
-        String value = extract(body, field);
+    private static String require(String body, String... fields) {
+        String value = extract(body, fields);
         if (value == null) {
             throw new IllegalStateException(
-                    "Feld " + field + " fehlt in Klassifikator-Antwort:\n" + body);
+                    "Feld " + fields[0] + " fehlt in Klassifikator-Antwort:\n" + body);
         }
         return value;
     }
 
-    private static String extract(String body, String field) {
-        Pattern p = Pattern.compile("(?im)^\\s*" + Pattern.quote(field) + "\\s*:\\s*(.+?)\\s*$");
-        Matcher m = p.matcher(body);
-        return m.find() ? m.group(1).strip() : null;
+    private static String extract(String body, String... fields) {
+        for (String field : fields) {
+            Pattern p = Pattern.compile("(?im)^\\s*" + Pattern.quote(field) + "\\s*:\\s*(.+?)\\s*$");
+            Matcher m = p.matcher(body);
+            if (m.find()) {
+                return m.group(1).strip();
+            }
+        }
+        return null;
     }
 
     private static String stripThinking(String raw) {
